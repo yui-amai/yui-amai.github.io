@@ -2,30 +2,28 @@ import { type LanguageKeys } from '@/i18n/ui'
 
 type SidebarSchema = {
   [Lang in LanguageKeys]: {
-    introduction: string
-    'getting-started': string
-    'sidebar-config': string
-    'writing-docs': string
-    'styling-config': string
-    deploying: string
+    'introduction': string
+    'about': string
+    'foundations-probability': string
+    'applied-survival': string
+    'tools-r': string
   }
 }
 
 export const SIDEBAR: SidebarSchema = {
   en: {
-    introduction: 'Introduction',
-    'getting-started': 'Getting started',
-    'sidebar-config': 'Sidebar config',
-    'writing-docs': 'Writing docs',
-    'styling-config': 'Styling config',
-    deploying: 'Deploying',
+    'introduction': 'Introduction',
+    'about': 'About Me',
+    'foundations-probability': 'Probability Basics',
+    'applied-survival': 'Survival Analysis',
+    'tools-r': 'R Markdown Guide',
   },
   jp: {
-    introduction: 'はじめに',
-    'getting-started': 'はじめる',
-    'sidebar-config': 'サイドバーの設定',
-    'writing-docs': 'ドキュメントの書き方',
-    'styling-config': 'スタイリングの設定',
-    deploying: 'デプロイ',
-  },
+    'introduction': 'はじめに',
+    'about': '私について',
+    'foundations-probability': '確率の基礎',
+    'applied-survival': '生存分析',
+    'tools-r': 'R Markdownガイド',
+  }
 }
+
