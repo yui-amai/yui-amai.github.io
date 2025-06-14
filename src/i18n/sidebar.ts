@@ -20,12 +20,12 @@ export const SIDEBAR: SidebarSchema = {
     'styling-config': 'Styling config',
     deploying: 'Deploying',
   },
-  sr: {
-    introduction: 'Uvod',
-    'getting-started': 'Početak',
-    'sidebar-config': 'Sidebar konfiguracija',
-    'writing-docs': 'Pisanje dokumentacije',
-    'styling-config': 'Konfiguracija stilizovanja',
-    deploying: 'Postavljanje sajta',
+  jp: {
+    introduction: 'はじめに',
+    'getting-started': 'はじめる',
+    'sidebar-config': 'サイドバーの設定',
+    'writing-docs': 'ドキュメントの書き方',
+    'styling-config': 'スタイリングの設定',
+    deploying: 'デプロイ',
   },
 }
