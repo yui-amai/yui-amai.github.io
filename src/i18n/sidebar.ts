@@ -20,7 +20,7 @@ export const SIDEBAR: SidebarSchema = {
   },
   jp: {
     'introduction': 'はじめに',
-    'about': '私について',
+    'about': '自己紹介',
     'foundations-probability': '確率の基礎',
     'applied-survival': '生存分析',
     'tools-r': 'R Markdownガイド',
