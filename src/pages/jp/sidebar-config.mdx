@@ -1,33 +1,34 @@
 ---
 layout: '@/layouts/Markdown.astro'
-title: Sidebar konfiguracija
-description: Naučite kako da napravite sidebar sa linkovima, sekcijama i podsekcijama.
+title: Sidebar config
+description: Learn how to create sidebar with links, sections, and subsections.
 ---
 
-## Počnite
+## Get started
 
-Idite u `src/i18n/sidebar.ts`, a unutar tipa `SidebarSchema` definisaćete oblik sadržaja vašeg sidebara.
+Go to `src/i18n/sidebar.ts`, and inside `SidebarSchema` type you will define the shape of your sidebar content.
 
 ```ts title="src/i18n/sidebar.ts"
 type SidebarSchema = {
   [Lang in LanguageKeys]: {
-    // piši tipove ovde
+    // write types here
   }
 }
 ```
 
-Svaki property objekta može biti ili `string` ili `section`. Ako je `string`, to je samo link, ali ako je `section`, to je sklopiva sekcija linkova ili sekcija.
+Each object property can be either `string` or `section`. If it's `string` it's just the link, but if it's `section`, that's collapsible section of links or sections.
 
-`Section` ima property-ije `sectionName`, i `sectionItems`.
+`Section` have `sectionName`, and
+`sectionItems` properties.
 
-`sectionName` je naslov sklopive sekcije, a
-`sectionItems` su stvari koje mogu biti ili link ili podsekcija.
+`sectionName` is title of the collapsible, and
+`sectionItems` are it's children which can be either link or a subsection.
 
-`Subsection` ima `subsectionName`, i
-`subsectionItems` property-ije.
+`Subsection` have `subsectionName`, and
+`subsectionItems` properties.
 
-`subsectionName` je naslov sklopive podsekcije, a
-`subsectionItems` su linkovi.
+`subsectionName` is title of the collapsible, and
+`subsectionItems` are it's children which are links.
 
 ```ts title="src/types.ts"
 type Section = {
@@ -41,16 +42,16 @@ type Subsection = {
 }
 ```
 
-Trebalo bi da imenujete svaki property objekta u ovoj schemi prema markdown fajlu ili nazivu direktorijuma koji ćete kreirati.
-Property-iji objekta u `SidebarSchema` treba da budu imenovani u [kebab-case](https://developer.mozilla.org/en-US/docs/glossary/Kebab_case).
+You should name each object property in this schema after the markdown file or folder name you will create.
+Object properties in `SidebarSchema` should be named in [kebab-case](https://developer.mozilla.org/en-US/docs/Glossary/Kebab_case).
 
-Svaka vrednost property-ija treba da bude prevod te stvari.
+Each property value should be translation of that item.
 
-Sve ovo verovatno zvuči zbunjujuće, pa ću vam pokazati nekoliko primera.
+This all probably sounds confusing, so I will show you few examples.
 
-## Primeri
+## Examples
 
-### Samo linkovi
+### Only links
 
 ```ts title="src/i18n/sidebar.ts"
 type SidebarSchema = {
@@ -87,13 +88,13 @@ export const SIDEBAR: SidebarSchema = {
 
 <br />
 
-Sada ćemo staviti `GET_STARTED_LINK` da bude prvi link u sidebaru:
+Now we set `GET_STARTED_LINK` to first link in the sidebar:
 
 ```ts title="src/config.ts"
 export const GET_STARTED_LINK = '/first-item'
 ```
 
-U ovom slučaju napravićete 5 markdown fajlova u svakom jezičkom direktorijumu i to će izgledati ovako:
+In this case you will create 5 markdown files in each lang folder and it will look like this:
 
 ```
 ├── en
@@ -110,9 +111,9 @@ U ovom slučaju napravićete 5 markdown fajlova u svakom jezičkom direktorijumu
 │ └── fifth-item.mdx
 ```
 
-I sada imate sidebar sa 5 linkova!
+And now you have a sidebar with 5 links!
 
-### Samo sekcije
+### Only sections
 
 ```ts title="src/i18n/sidebar.ts"
 type SidebarSchema = {
@@ -182,13 +183,13 @@ export const SIDEBAR: SidebarSchema = {
 
 <br />
 
-Sada ćemo staviti `GET_STARTED_LINK` da bude prvi link u sidebaru:
+Now we set `GET_STARTED_LINK` to first link in the sidebar:
 
 ```ts title="src/config.ts"
 export const GET_STARTED_LINK = '/first-section/first-item'
 ```
 
-U ovom slučaju napravićete 2 direktorijuma sa po 3 fajla, u svakom jezičkom direktorijumu i to će izgledati ovako:
+In this case you will create 2 folders with 3 files each, in each lang folder and it will look like this:
 
 ```
 ├── en
@@ -211,9 +212,9 @@ U ovom slučaju napravićete 2 direktorijuma sa po 3 fajla, u svakom jezičkom d
 │ │ └── sixth-item.mdx
 ```
 
-Sada imate sidebar sa 2 sekcije sa po 3 linka!
+And now you have a sidebar with 2 sections with 3 links each!
 
-### Linkovi i sekcije
+### Links and sections
 
 ```ts title="src/i18n/sidebar.ts"
 type SidebarSchema = {
@@ -295,13 +296,13 @@ export const SIDEBAR: SidebarSchema = {
 
 <br />
 
-Sada ćemo staviti `GET_STARTED_LINK` da bude prvi link u sidebaru:
+Now we set `GET_STARTED_LINK` to first link in the sidebar:
 
 ```ts title="src/config.ts"
 export const GET_STARTED_LINK = '/first-item'
 ```
 
-U ovom slučaju napravićete 4 fajla i 2 direktorijuma sa po 3 fajla, u svakom jezičkom folderu i to će izgledati ovako:
+In this case you will create 4 files and 2 folders with 3 files each, in each lang folder and it will look like this:
 
 ```
 ├── en
@@ -332,9 +333,9 @@ U ovom slučaju napravićete 4 fajla i 2 direktorijuma sa po 3 fajla, u svakom j
 │ ├── tenth-item.mdx
 ```
 
-Sada imate sidebar sa 4 linka i 2 sekcije po 3 linka!
+And now you have a sidebar with 4 links and 2 sections with 3 links each!
 
-### Podsekcije
+### Subsections
 
 ```ts title="src/i18n/sidebar.ts"
 type SidebarSchema = {
@@ -419,13 +420,13 @@ export const SIDEBAR: SidebarSchema = {
 
 <br />
 
-Sada ćemo staviti `GET_STARTED_LINK` da bude prvi link u sidebaru:
+Now we set `GET_STARTED_LINK` to first link in the sidebar:
 
 ```ts title="src/config.ts"
 export const GET_STARTED_LINK = '/first-section/first-item'
 ```
 
-U ovom slučaju napravićete 1 direktorijum koji sadrži 2 fajla, i 2 poddirektorijuma sa po 2 fajla, u svakom jezičkom direktorijumu i to će izgledati ovako:
+In this case you will create 1 folder containing 2 files, and 2 subfolders with 2 files each, in each lang folder and it will look like this:
 
 ```
 ├── en
@@ -450,4 +451,4 @@ U ovom slučaju napravićete 1 direktorijum koji sadrži 2 fajla, i 2 poddirekto
 │ │ │ └── sixth-item.mdx
 ```
 
-Sada imate sidebar sa 1 sekcijom sa 2 linka, i 2 podsekcije sa po 2 linka!
+And now you have a sidebar with 1 section with 2 links, and 2 subsections with 2 links each!

@@ -1,0 +1,210 @@
+---
+layout: '@/layouts/Markdown.astro'
+title: はじめに
+description: Stellarでドキュメントサイトの構築を始める方法を学びましょう。
+---
+
+## プロジェクトの作成
+
+このテンプレートから[新しいリポジトリを作成](https://github.com/ekmas/stellar/generate)してください。
+
+## 作業環境の設定
+
+以下のVSCode拡張機能をインストールすることをお勧めします：
+
+<ul>
+  <li>
+    [Astro](https://marketplace.visualstudio.com/items?itemName=astro-build.astro-vscode)
+    - `.astro`ファイルの言語サポート、シンタックスハイライトなどを提供します
+  </li>
+  <li>
+    [Tailwind](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
+    - Tailwindユーティリティクラスのインテリセンスを提供します
+  </li>
+  <li>
+    [Eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+    - VSCodeにESLintを統合します
+  </li>
+  <li>
+    [MDX](https://marketplace.visualstudio.com/items?itemName=unifiedjs.vscode-mdx)
+    - `.mdx`ファイルの言語サポートを追加します
+  </li>
+  <li>
+    [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+    - VSCodeにPrettierを統合します
+  </li>
+</ul>
+
+これらの拡張機能をインストールしなくても大きな問題はありませんが、インストールすることをお勧めします。
+
+## 設定
+
+<ul>
+  <li>
+    `src/config.ts`に移動し、値を設定します
+  </li>
+  <li>
+    `GET_STARTED_LINK`を、ランディングページの「はじめる」ボタンまたはナビゲーションのドキュメントリンクをクリックした際の遷移先リンクに設定します（サイドバーの最初のリンクに設定することをお勧めします）
+  </li>
+  <li>
+    `src/astro.config.mjs`に移動し、`site`にウェブサイトのURLを入力します
+
+    ```js ins={2} title="src/astro.config.mjs"
+    export default defineConfig({
+      site: 'https://your-website-url.com',
+    })
+    ```
+
+  </li>
+</ul>
+
+## I18N Config
+
+### Single language docs
+
+もしドキュメントを1つの言語のみで作成したい場合（本当にそうしたい場合を除いて、あまりお勧めはしません）、以下の手順を行ってください：
+
+<ul>
+  <li>
+    `src/config.ts`内で`SINGLE_LANGUAGE`をtrueに設定します
+    まだ設定していない場合
+  </li>
+  <li>
+    `src/i18n/ui.ts`内の`LANGUAGES`オブジェクトで
+    使用したい言語のみを残し、同じファイル内の古い言語のデータをすべて削除します
+  </li>
+  <li>
+    `src/i18n/sidebar.ts`内の古い言語のデータをすべて削除します
+  </li>
+  <li>
+    `src/components/navigation`内の`Nav.astro`と`MobileNav.astro`コンポーネントの`getDocs`関数で
+    使用したい言語のみを残します
+
+    ```ts del={4-11} ins={13-14}
+    const getDocs = async () => {
+      let docs: null | MarkdownInstance<any>[] = null
+
+      switch (lang) {
+        case 'en':
+          docs = await Astro.glob(`@/pages/en/**`)
+          break
+        case 'sr':
+          docs = await Astro.glob(`@/pages/sr/**`)
+          break
+      }
+
+      docs = await Astro.glob(`@/pages/en/**`)
+      // ここで言語に合わせてパスを変更します
+
+      return docs.map((doc: MarkdownInstance<any>) => {
+        return {
+          title: doc.frontmatter.title,
+          description: doc.frontmatter.description,
+          url: doc.url,
+        } as MarkdownRecord
+      })
+    }
+    ```
+
+  </li>
+  <li>
+    `src/pages`内で`index.astro`以外のすべてのastroファイルと、言語フォルダ以外のすべてのフォルダを削除します
+  </li>
+</ul>
+
+### Multi language docs
+
+<ul>
+  <li>
+    `src/i18n/ui.ts`内の`LANGUAGES`オブジェクトに、ドキュメントを翻訳したいすべての言語を追加します
+  </li>
+  <li>
+    `src/i18n/sidebar.ts`内の古い言語のデータをすべて削除し、新しい言語のデータを追加します
+  </li>
+  <li>
+    `src/components/navigation`内の`Nav.astro`と`MobileNav.astro`コンポーネントの`getDocs`関数に
+    使用したい各言語のケースを追加します。
+
+    ```ts ins={11-13}
+    const getDocs = async () => {
+      let docs: null | MarkdownInstance<any>[] = null
+
+      switch (lang) {
+        case 'en':
+          docs = await Astro.glob(`@/pages/en/**`)
+          break
+        case 'sr':
+          docs = await Astro.glob(`@/pages/sr/**`)
+          break
+        case 'es':
+          docs = await Astro.glob(`@/pages/es/**`)
+          break
+      }
+
+      return docs.map((doc: MarkdownInstance<any>) => {
+        return {
+          title: doc.frontmatter.title,
+          description: doc.frontmatter.description,
+          url: doc.url,
+        } as MarkdownRecord
+      })
+    }
+    ```
+
+  </li>
+  <li>また、`src/pages`内で現在の言語フォルダ以外のすべてのフォルダを削除します。</li>
+  <li>
+  また、`src/pages`内で、`config.ts`で定義された`DEFAULT_LANGUAGE`以外の各言語のastroファイルを追加します。
+  
+  例えば、4つの言語があるとします。
+  ```ts
+  export const LANGUAGES = {
+    en: 'English',
+    sr: 'Srpski',
+    es: 'Español',
+    fr: 'Français'
+  } as const
+  ```
+
+仮に`index.astro`ファイルしかないとします。
+
+`sr.astro`、`es.astro`、`fr.astro`を作成します。
+
+```ts title="sr.astro"
+---
+import LandingPage from '@/components/LandingPage.astro'
+import { LANDING_PAGE } from '@/i18n/ui'
+---
+
+<LandingPage t={LANDING_PAGE.sr} />
+
+```
+
+<br />
+
+```ts title="es.astro"
+---
+import LandingPage from '@/components/LandingPage.astro'
+import { LANDING_PAGE } from '@/i18n/ui'
+---
+
+<LandingPage t={LANDING_PAGE.es} />
+
+```
+
+<br />
+
+```ts title="fr.astro"
+---
+import LandingPage from '@/components/LandingPage.astro'
+import { LANDING_PAGE } from '@/i18n/ui'
+---
+
+<LandingPage t={LANDING_PAGE.fr} />
+
+```
+
+基本的に、作成する各言語に対して新しいastroページを作成し、その言語コードで名前を付け、`<LandingPage />`をインポートし、`LANDING_PAGE`オブジェクトを`t`プロップにその言語コードのプロパティと共に渡します。
+
+  </li>
+</ul>

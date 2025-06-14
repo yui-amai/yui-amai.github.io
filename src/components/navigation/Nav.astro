@@ -33,8 +33,8 @@ const getDocs = async () => {
     case 'en':
       docs = await Astro.glob(`@/pages/en/**`)
       break
-    case 'sr':
-      docs = await Astro.glob(`@/pages/sr/**`)
+    case 'jp':
+      docs = await Astro.glob(`@/pages/jp/**`)
       break
   }
   return docs.map((doc: MarkdownInstance<any>) => {
