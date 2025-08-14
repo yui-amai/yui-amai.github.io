@@ -60,7 +60,22 @@ const docs: MarkdownRecord[] = await getDocs()
         class="mr-10 inline-block transition-opacity hover:opacity-70 w800:mr-0"
         href={lang === DEFAULT_LANGUAGE_CODE ? '/' : `/${lang}`}
       >
-        <h2 class="text-2xl font-bold w500:text-xl">{PROJECT_NAME}</h2>
+        <div class="flex items-center">
+          <svg class="h-8 w-8 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+            <defs>
+              <linearGradient id="navGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#2b5876;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#4e4376;stop-opacity:1" />
+              </linearGradient>
+              <linearGradient id="navGradientDark" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#f3e7e9;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#e3eeff;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <path d="M160 384C107 384 64 341 64 288C64 245.5 91.6 209.4 129.9 196.8C128.6 190.1 128 183.1 128 176C128 114.1 178.1 64 240 64C283.1 64 320.5 88.3 339.2 124C353.9 106.9 375.7 96 400 96C444.2 96 480 131.8 480 176C480 181.5 479.4 186.8 478.4 192C478.9 192 479.5 192 480 192C533 192 576 235 576 288C576 341 533 384 480 384L160 384zM161.6 452.2C162.7 449.7 165.2 448 168 448C170.8 448 173.3 449.6 174.4 452.2L204.6 520.4C206.8 525.5 208 530.9 208 536.4C208 558.3 189.9 576 168 576C146.1 576 128 558.3 128 536.4C128 530.9 129.2 525.4 131.4 520.4L161.6 452.2zM313.6 452.2C314.7 449.7 317.2 448 320 448C322.8 448 325.3 449.6 326.4 452.2L356.6 520.4C358.8 525.5 360 530.9 360 536.4C360 558.3 341.9 576 320 576C298.1 576 280 558.3 280 536.4C280 530.9 281.2 525.4 283.4 520.4L313.6 452.2zM435.4 520.4L465.6 452.2C466.7 449.7 469.2 448 472 448C474.8 448 477.3 449.6 478.4 452.2L508.6 520.4C510.8 525.5 512 530.9 512 536.4C512 558.3 493.9 576 472 576C450.1 576 432 558.3 432 536.4C432 530.9 433.2 525.4 435.4 520.4z" class="fill-[url(#navGradient)] dark:fill-[url(#navGradientDark)]"/>
+          </svg>
+          <h2 class="text-2xl font-bold w500:text-xl">{PROJECT_NAME}</h2>
+        </div>
       </a>
 
       <div class="z-20 w800:hidden">
@@ -86,7 +101,7 @@ const docs: MarkdownRecord[] = await getDocs()
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1024 1024"
           ><path
-            class="fill-lightModeIcon transition-colors dark:fill-darkModeIcon"
+            class="fill-[#374151] transition-colors dark:fill-white"
             d="m1024 525c0 225.9-146.6 417.9-348.8 485.8-25.6 5.1-35.2-10.9-35.2-24.4 0-17.2.6-72.3.6-140.8 0-48-16-78.7-34.5-94.7 113.9-12.8 233.6-56.3 233.6-252.8 0-56.3-19.9-101.7-52.5-137.6 5.1-12.8 23-65.3-5.1-135.7 0 0-42.9-14-140.8 52.5-41-11.5-84.5-17.3-128-17.3s-87.1 5.8-128 17.3c-97.9-65.9-140.8-52.5-140.8-52.5-28.2 70.4-10.3 122.9-5.1 135.7-32.7 35.9-52.5 81.9-52.5 137.6 0 195.9 119 240 232.9 252.8-14.7 12.8-28.1 35.2-32.6 68.5-29.4 13.4-103 35.2-149.1-42.2-9.6-15.4-38.4-53.2-78.7-52.5-42.9.6-17.3 24.3.6 33.9 21.8 12.2 46.7 57.6 52.5 72.3 10.2 28.8 43.5 83.9 172.1 60.2 0 42.9.7 83.2.7 95.3 0 13.5-9.6 28.8-35.2 24.4-203.5-67.9-350.1-259.2-350.1-485.8 0-282.9 229.1-512 512-512s512 229.1 512 512z"
             fill-rule="evenodd"></path></svg
         >
@@ -101,7 +116,7 @@ const docs: MarkdownRecord[] = await getDocs()
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           ><path
-            class="fill-lightModeIcon transition-colors dark:fill-darkModeIcon"
+            class="fill-[#374151] transition-colors dark:fill-white"
             d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
             fill-rule="evenodd"></path></svg
         >

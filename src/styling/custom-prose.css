@@ -1,5 +1,13 @@
 /* 自定义 Markdown 样式 - 改善行距和层级 */
 
+/* 确保日文字体正确应用 */
+.jp-content,
+[lang="jp"],
+.japanese-text {
+  font-family: 'Shippori Mincho B1', 'Hiragino Mincho ProN', 'Yu Mincho', 'Meiryo', serif !important;
+  font-weight: 400;
+}
+
 .custom-prose {
   /* 增加整体行距 */
   line-height: 1.8;
@@ -69,12 +77,12 @@
 
 /* 自定义列表样式 */
 .custom-prose ul li::marker {
-  color: #3b82f6;
+  color: #475569; /* 深蓝灰色，低饱和度 */
   font-weight: 600;
 }
 
 .custom-prose ol li::marker {
-  color: #3b82f6;
+  color: #475569; /* 深蓝灰色，低饱和度 */
   font-weight: 600;
 }
 
@@ -120,4 +128,13 @@
 
 .dark .custom-prose h2 {
   border-top-color: #4b5563;
+}
+
+/* 深色模式下的列表标记颜色 */
+.dark .custom-prose ul li::marker {
+  color: #94a3b8; /* 浅蓝灰色，低饱和度 */
+}
+
+.dark .custom-prose ol li::marker {
+  color: #94a3b8; /* 浅蓝灰色，低饱和度 */
 }
