@@ -19,7 +19,7 @@ export const TWITTER_USERNAME = null
 
 export const GITHUB_REPO_URL = 'https://github.com/yui-amai/yui-amai.github.io'
 
-export const GITHUB_EDIT_URL = GITHUB_REPO_URL + '/edit/dev/src/pages/'
+export const GITHUB_EDIT_URL = GITHUB_REPO_URL + '/edit/main/src/pages/'
 // used for edit url link at the bottom of each page in docs so users can edit it
 // dont change it unless your branch name is not "main" (/edit/BRANCH_NAME/src/pages/)
 
