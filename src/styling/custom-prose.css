@@ -1,0 +1,123 @@
+/* 自定义 Markdown 样式 - 改善行距和层级 */
+
+.custom-prose {
+  /* 增加整体行距 */
+  line-height: 1.8;
+}
+
+/* 日文字体支持 */
+.custom-prose[lang="jp"],
+.custom-prose .jp-content {
+  font-family: 'Shippori Mincho B1', 'Hiragino Mincho ProN', 'Yu Mincho', 'Meiryo', serif;
+  font-weight: 400;
+  line-height: 1.9; /* 日文字体需要稍大的行距 */
+}
+
+.custom-prose h1 {
+  margin-top: 2.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 2.25rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.custom-prose h2 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1.875rem;
+  font-weight: 700;
+  line-height: 1.3;
+  padding-top: 1rem;
+  border-top: 2px solid #e5e7eb;
+}
+
+.custom-prose h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #374151;
+}
+
+.custom-prose h4 {
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #4b5563;
+}
+
+.custom-prose p {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  line-height: 1.8;
+}
+
+.custom-prose ul, .custom-prose ol {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.custom-prose li {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+}
+
+/* 自定义列表样式 */
+.custom-prose ul li::marker {
+  color: #3b82f6;
+  font-weight: 600;
+}
+
+.custom-prose ol li::marker {
+  color: #3b82f6;
+  font-weight: 600;
+}
+
+/* 改善层级间距 */
+.custom-prose h1 + h2,
+.custom-prose h2 + h3,
+.custom-prose h3 + h4 {
+  margin-top: 1rem;
+}
+
+.custom-prose h1 + p,
+.custom-prose h2 + p,
+.custom-prose h3 + p,
+.custom-prose h4 + p {
+  margin-top: 1rem;
+}
+
+/* 项目列表的特殊样式 */
+.custom-prose ul li ul {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.custom-prose ul li ul li {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  font-size: 0.95rem;
+  color: #4b5563;
+}
+
+/* 深色模式适配 */
+.dark .custom-prose h3 {
+  color: #d1d5db;
+}
+
+.dark .custom-prose h4 {
+  color: #9ca3af;
+}
+
+.dark .custom-prose ul li ul li {
+  color: #9ca3af;
+}
+
+.dark .custom-prose h2 {
+  border-top-color: #4b5563;
+}
