@@ -6,7 +6,7 @@ type LanguageObject<T> = {
 
 export const LANGUAGES = {
   en: 'English',
-  jp: 'Japanese',
+  jp: '日本語',
 } as const
 
 export type LandingPageObj = {

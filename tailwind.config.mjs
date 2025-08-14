@@ -18,7 +18,7 @@ export default {
         w400: { max: '400px' },
       },
       colors: {
-        lightModeText: '#000',
+        lightModeText: '#374151', // 深灰色，更易读
         darkModeText: '#fff',
 
         lightModeBg: colors.neutral[100],
@@ -32,7 +32,7 @@ export default {
       },
       backgroundImage: {
         lightModeGradient:
-          'linear-gradient(45deg, #93a5cf 0%, #e4efe9 100%)',
+          'linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%)',
         darkModeGradient:
           'linear-gradient(-20deg, #2b5876 0%, #4e4376 100%)',
       },
