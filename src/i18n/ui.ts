@@ -17,14 +17,14 @@ export type LandingPageObj = {
 
 export const LANDING_PAGE: LanguageObject<LandingPageObj> = {
   en: {
-    description: 'Personal blog and documentation site built with Astro.',
-    getStartedBtnText: 'Get started',
-    githubBtnText: 'Source code',
+    description: 'Personal blog that records my academic journey and thoughts on research.',
+    getStartedBtnText: 'About Me',
+    githubBtnText: 'GitHub',
   },
   jp: {
-    description: 'Astroで構築された個人ブログとドキュメントサイト。',
-    getStartedBtnText: '始めましょう',
-    githubBtnText: 'ソースコード',
+    description: '私の学術の旅と研究についての思考を記録する個人ブログ。',
+    getStartedBtnText: '自己紹介',
+    githubBtnText: 'GitHub',
   },
 } as const
 
