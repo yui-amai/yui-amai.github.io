@@ -1,12 +1,12 @@
 import { type LanguageKeys } from '@/i18n/ui'
 import type { ThemeObjectOrShikiThemeName } from 'astro-expressive-code'
 
-export const PROJECT_NAME = 'Stellar'
+export const PROJECT_NAME = 'Yui Amai'
 // used for landing page heading and nav home link
 
 export const SITE = {
-  title: 'Stellar',
-  description: 'Modern type-safe documentation theme for Astro.',
+  title: 'Yui Amai',
+  description: 'Personal blog and documentation site built with Astro.',
   defaultLanguage: 'en_US', // don't mistaken this with DEFAULT_LANGUAGE_CODE below, this is used only for meta tags
 }
 // used for meta tags
@@ -17,9 +17,9 @@ export const DEFAULT_LANGUAGE_CODE: LanguageKeys = 'en'
 export const TWITTER_USERNAME = null
 // enter your twitter username if you have it
 
-export const GITHUB_REPO_URL = 'https://github.com/ekmas/stellar'
+export const GITHUB_REPO_URL = 'https://github.com/yui-amai/yui-amai.github.io'
 
-export const GITHUB_EDIT_URL = GITHUB_REPO_URL + '/edit/main/src/pages/'
+export const GITHUB_EDIT_URL = GITHUB_REPO_URL + '/edit/dev/src/pages/'
 // used for edit url link at the bottom of each page in docs so users can edit it
 // dont change it unless your branch name is not "main" (/edit/BRANCH_NAME/src/pages/)
 
