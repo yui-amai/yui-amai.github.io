@@ -32,9 +32,9 @@ export default {
       },
       backgroundImage: {
         lightModeGradient:
-          'radial-gradient(ellipse 80% 80% at 50% -20%,rgba(120,119,198,0.5),rgba(0,0,0,0))',
+          'radial-gradient(ellipse 80% 80% at 50% -20%,rgba(59,130,246,0.4),rgba(0,0,0,0))',
         darkModeGradient:
-          'radial-gradient(ellipse 80% 80% at 50% -20%,rgba(120,119,198,0.3),rgba(255,255,255,0))',
+          'radial-gradient(ellipse 80% 80% at 50% -20%,rgba(30,64,175,0.6),rgba(0,0,0,0.8))',
       },
       borderRadius: {
         base: '10px', // dont make this value greater than 30px because it can make some elements look weird e.g. search element and search results
