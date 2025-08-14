@@ -18,6 +18,7 @@
     "@astrojs/react": "^3.6.2",
     "@astrojs/tailwind": "^5.1.0",
     "@fontsource/karla": "^5.0.18",
+    "@fontsource/shippori-mincho-b1": "^5.2.6",
     "@types/react": "^18.2.65",
     "@types/react-dom": "^18.2.21",
     "astro": "^4.13.4",

@@ -32,12 +32,16 @@ export default {
       },
       backgroundImage: {
         lightModeGradient:
-          'radial-gradient(ellipse 80% 80% at 50% -20%,rgba(59,130,246,0.4),rgba(0,0,0,0))',
+          'linear-gradient(45deg, #93a5cf 0%, #e4efe9 100%)',
         darkModeGradient:
-          'radial-gradient(ellipse 80% 80% at 50% -20%,rgba(30,64,175,0.6),rgba(0,0,0,0.8))',
+          'linear-gradient(-20deg, #2b5876 0%, #4e4376 100%)',
       },
       borderRadius: {
         base: '10px', // dont make this value greater than 30px because it can make some elements look weird e.g. search element and search results
+      },
+      fontFamily: {
+        sans: ['Karla', 'Shippori Mincho B1', 'Hiragino Mincho ProN', 'Yu Mincho', 'Meiryo', 'serif'],
+        japanese: ['Shippori Mincho B1', 'Hiragino Mincho ProN', 'Yu Mincho', 'Meiryo', 'serif'],
       },
     },
   },
