@@ -19,13 +19,13 @@ export default {
       },
       colors: {
         lightModeText: '#374151', // 深灰色，更易读
-        darkModeText: '#fff',
+        darkModeText: '#e5e7eb', // 稍微偏灰色，不会太刺眼
 
         lightModeBg: colors.neutral[100],
         darkModeBg: colors.neutral[950],
 
-        lightModeIcon: '#000',
-        darkModeIcon: '#fff',
+        lightModeIcon: '#374151', // 深灰色，与其他图标一致
+        darkModeIcon: '#e5e7eb', // 浅灰色，与其他图标一致
 
         lightModeBgHover: colors.neutral[300],
         darkModeBgHover: colors.neutral[700],
@@ -40,8 +40,14 @@ export default {
         base: '10px', // dont make this value greater than 30px because it can make some elements look weird e.g. search element and search results
       },
       fontFamily: {
-        sans: ['Karla', 'Shippori Mincho B1', 'Hiragino Mincho ProN', 'Yu Mincho', 'Meiryo', 'serif'],
-        japanese: ['Shippori Mincho B1', 'Hiragino Mincho ProN', 'Yu Mincho', 'Meiryo', 'serif'],
+        sans: ['Noto Serif JP', 'Noto Serif', 'Noto Sans', 'sans-serif'],
+        japanese: ['Noto Serif JP', 'Noto Serif', 'Noto Sans', 'sans-serif'],
+      },
+      fontWeight: {
+        'light': '300',
+        'normal': '400',
+        'medium': '500',
+        'semibold': '600',
       },
     },
   },

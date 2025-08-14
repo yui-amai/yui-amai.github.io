@@ -17,19 +17,19 @@ const lang = Astro.url.pathname.split('/')[1] || DEFAULT_LANGUAGE_CODE
     <div class="mx-auto w-[1300px] max-w-full px-5">
       <div class="flex flex-col items-center">
         <h1
-          class="mx-auto w-[800px] bg-gradient-to-b from-darkModeBg to-darkModeBg/60 bg-clip-text text-center text-5xl font-extrabold leading-[1.4] text-transparent dark:from-lightModeBg dark:to-lightModeBg/60 w900:w-full w600:text-3xl"
+          class="mx-auto w-[800px] bg-gradient-to-b from-darkModeBg to-darkModeBg/60 bg-clip-text text-center text-4xl font-light leading-[1.4] text-transparent dark:from-lightModeBg dark:to-lightModeBg/60 w900:w-full w600:text-2xl"
         >
           {PROJECT_NAME}
         </h1>
         <p
-          class="mx-auto mt-7 w-[900px] text-center text-xl leading-relaxed tracking-wide opacity-80 w900:w-full w600:text-lg"
+          class="mx-auto mt-7 w-[900px] text-center text-lg leading-relaxed tracking-wide opacity-80 w900:w-full w600:text-base"
         >
           {t.description}
         </p>
         <div class="mt-12 flex items-center w600:mt-9">
           <a
             href={`/${lang}${GET_STARTED_LINK}`}
-            class="flex h-12 items-center justify-center rounded-base border-2 border-[#374151] px-6 text-center text-lg text-[#374151] transition-all hover:bg-[#374151] hover:text-white dark:border-lightModeBg dark:bg-gradient-to-b dark:from-lightModeBg dark:to-lightModeBg/60 dark:bg-clip-text dark:text-transparent dark:hover:bg-white dark:hover:text-[#2b5876] dark:hover:bg-none dark:hover:bg-clip-border w600:text-base w400:h-10 w400:px-3"
+            class="flex h-12 items-center justify-center rounded-base border-2 border-[#374151] px-6 text-center text-lg text-[#374151] transition-all hover:bg-[#374151] hover:text-white dark:border-[#e5e7eb] dark:text-[#e5e7eb] dark:hover:bg-[#e5e7eb] dark:hover:text-[#2b5876] w600:text-base w400:h-10 w400:px-3"
             >{t.getStartedBtnText}
           </a>
         </div>

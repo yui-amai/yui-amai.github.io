@@ -10,11 +10,26 @@ import '@fontsource/karla/400.css'
 import '@fontsource/karla/500.css'
 import '@fontsource/karla/700.css'
 
-// 添加日文字体支持 - Shippori Mincho B1
-import '@fontsource/shippori-mincho-b1/400.css'
-import '@fontsource/shippori-mincho-b1/500.css'
-import '@fontsource/shippori-mincho-b1/600.css'
-import '@fontsource/shippori-mincho-b1/700.css'
+// 添加 Noto Sans 字体支持 - 同时支持中文、日文、英文
+import '@fontsource/noto-sans/400.css'
+import '@fontsource/noto-sans/500.css'
+import '@fontsource/noto-sans/600.css'
+import '@fontsource/noto-sans/700.css'
+
+// 添加 Noto Serif 字体支持
+import '@fontsource/noto-serif/400.css'
+import '@fontsource/noto-serif/500.css'
+import '@fontsource/noto-serif/600.css'
+import '@fontsource/noto-serif/700.css'
+
+// 添加 Noto Serif Japanese 字体支持
+import '@fontsource/noto-serif-jp/400.css'
+import '@fontsource/noto-serif-jp/500.css'
+import '@fontsource/noto-serif-jp/600.css'
+import '@fontsource/noto-serif-jp/700.css'
+
+// 添加 Font Awesome 图标支持
+import '@fortawesome/fontawesome-free/css/all.css'
 
 // custom styling
 import '@/styling/scrollbar.css'
@@ -30,21 +45,53 @@ const lang = Astro.url.pathname.split('/')[1] || DEFAULT_LANGUAGE_CODE
 ---
 
 <style is:global>
+  /* 基础字体设置 */
   body {
-    font-family: 'Karla', sans-serif;
+    font-family: 'Noto Serif JP', 'Noto Serif', 'Noto Sans', sans-serif;
+    font-weight: 300;
   }
   
-  /* 确保日文字体正确应用 */
-  [lang="jp"],
-  .jp-content,
-  .japanese-text {
-    font-family: 'Shippori Mincho B1', 'Hiragino Mincho ProN', 'Yu Mincho', 'Meiryo', serif !important;
+  /* 英文页面使用 Noto Serif */
+  [lang="en"] {
+    font-family: 'Noto Serif', 'Noto Sans', sans-serif !important;
   }
   
-  /* 日文页面的整体字体 */
-  html[lang="jp"] body,
-  body[lang="jp"] {
-    font-family: 'Shippori Mincho B1', 'Hiragino Mincho ProN', 'Yu Mincho', 'Meiryo', serif;
+  [lang="en"] * {
+    font-family: 'Noto Serif', 'Noto Sans', sans-serif !important;
+  }
+  
+  /* 日文页面使用 Noto Serif JP */
+  [lang="jp"] {
+    font-family: 'Noto Serif','Noto Serif JP', 'Noto Sans', sans-serif !important;
+  }
+  
+  [lang="jp"] * {
+    font-family: 'Noto Serif', 'Noto Serif JP', 'Noto Sans', sans-serif !important;
+  }
+  
+  /* 强制覆盖 Tailwind 的字体设置 */
+  .prose[lang="jp"] *,
+  .prose-lg[lang="jp"] *,
+  .prose-sm[lang="jp"] *,
+  .custom-prose[lang="jp"] * {
+    font-family: 'Noto Serif JP', 'Noto Serif', 'Noto Sans', sans-serif !important;
+  }
+  
+  .prose[lang="en"] *,
+  .prose-lg[lang="en"] *,
+  .prose-sm[lang="en"] *,
+  .custom-prose[lang="en"] * {
+    font-family: 'Noto Serif', 'Noto Sans', sans-serif !important;
+  }
+  
+  /* 重要：font-japanese 类始终使用日语字体，无论页面语言 */
+  .font-japanese {
+    font-family: 'Noto Serif JP', 'Noto Serif', 'Noto Sans', sans-serif !important;
+  }
+  
+  /* 确保语言切换器中的日语文本使用正确的字体 */
+  .font-japanese * {
+    font-family: 'Noto Serif JP', 'Noto Serif', 'Noto Sans', sans-serif !important;
   }
 </style>
 

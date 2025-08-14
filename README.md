@@ -1,23 +1,20 @@
-# Stellar
+# Yui Amai's Blog
 
-Stellar is a modern type-safe documentation theme for Astro.
-
-## Get started 
-
-Visit [documentation](https://stellar-theme.netlify.app/en/introduction/) to get started.
+Personal academic blog built with [Astro](https://astro.build/) and based on the [Stellar](https://github.com/chrisgrieser/astro-theme-stellar) theme.
 
 ## Features
 
-- Astro v4
-- Dark mode
-- I18n (type safe)
-- MD & MDX support
-- Search powered by fuse.js
-- Tailwind styling
-- View transitions API
-- Responsive & SEO-friendly
-- Shiki code syntax styling
-- Custom import path
+- Bilingual support (English/Japanese)
+- Dark/light mode
+- Responsive design
+- Search functionality
+
+## Development
+
+```bash
+npm install
+npm run dev
+```
 
 ## License
 
