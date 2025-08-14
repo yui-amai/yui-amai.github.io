@@ -8,7 +8,6 @@ import Base from '@/layouts/Base.astro'
 import Sidebar from '@/components/sidebar/Sidebar.astro'
 import OnThisPage from '@/components/navigation/OnThisPage.astro'
 import PreviousNextPage from '@/components/navigation/PreviousNextPage.astro'
-import EditThisPage from '@/components/navigation/EditThisPage.astro'
 
 const langFromURL = Astro.url.pathname.split('/')[1] || DEFAULT_LANGUAGE_CODE
 const lang: LanguageKeys = langFromURL as LanguageKeys
@@ -19,7 +18,7 @@ const { frontmatter, headings } = Astro.props as {
 }
 ---
 
-<Base frontmatter={frontmatter} lang={lang}>
+<Base frontmatter={frontmatter}>
   <Sidebar lang={lang} />
   <div
     class="ml-[300px] mr-[500px] w1600:mr-[300px] w1200:mx-[250px] w1100:ml-[250px] w1100:mr-0 w800:ml-0"
@@ -28,12 +27,11 @@ const { frontmatter, headings } = Astro.props as {
       <OnThisPage lang={lang} headings={headings} />
       <div
         id="markdown"
-        class="prose w-full max-w-full break-words p-10 text-lightModeText/90 w1200:prose-sm prose-headings:scroll-mt-28 prose-headings:text-lightModeText prose-a:text-lightModeText prose-blockquote:text-lightModeText prose-strong:text-lightModeText prose-ol:text-lightModeText prose-ul:text-lightModeText prose-table:text-lightModeText prose-tr:text-lightModeText prose-td:text-lightModeText prose-hr:bg-transparent dark:text-darkModeText/90 dark:prose-headings:text-darkModeText dark:prose-a:text-darkModeText dark:prose-blockquote:text-darkModeText dark:prose-strong:text-darkModeText dark:prose-code:text-darkModeText dark:prose-ol:text-darkModeText dark:prose-ul:text-darkModeText dark:prose-table:text-darkModeText dark:prose-tr:text-darkModeText dark:prose-td:text-darkModeText w800:p-8 w500:p-5 custom-prose"
+        class="prose w-full max-w-full break-words p-10 text-lightModeText/90 w1200:prose-sm prose-headings:scroll-mt-28 prose-headings:text-lightModeText prose-a:text-lightModeText prose-blockquote:text-lightModeText prose-strong:text-lightModeText prose-ol:text-lightModeText prose-ul:text-lightModeText prose-table:text-lightModeText prose-tr:text-lightModeText prose-td:text-lightModeText prose-hr:bg-transparent dark:text-darkModeText/90 dark:prose-headings:text-darkModeText dark:prose-a:text-darkModeText dark:prose-blockquote:text-darkModeText dark:prose-strong:text-darkModeText dark:prose-code:text-darkModeText dark:prose-ol:text-darkModeText dark:prose-ul:text-darkModeText dark:prose-table:text-darkModeText dark:prose-tr:text-darkModeText dark:prose-td:text-darkModeText w800:p-8 w500:p-5 custom-prose prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-h4:text-lg w800:prose-h1:text-2xl w800:prose-h2:text-xl w800:prose-h3:text-lg w500:prose-h1:text-xl w500:prose-h2:text-lg w500:prose-h3:text-base"
       >
-        <h1 class="w500:text-2xl" id="_top">{frontmatter.title}</h1>
+        <h1 class="w500:text-xl" id="_top">{frontmatter.title}</h1>
         <p>{frontmatter.description}</p>
         <slot />
-        <EditThisPage lang={lang} file={frontmatter.file} />
       </div>
       <PreviousNextPage lang={lang} />
     </div>

@@ -46,16 +46,19 @@ const lang: LanguageKeys = langFromURL as LanguageKeys
   </button>
   <div
     id="language-dropdown"
-    class="duration invisible absolute right-0 top-16 w-min rounded-base opacity-0 outline outline-1 outline-black/20 transition-all dark:outline-white/20 bg-white/90 backdrop-blur-sm dark:bg-gray-800/90"
+    class="duration invisible absolute right-0 top-16 w-min rounded-base opacity-0 outline outline-1 outline-black/20 transition-all dark:outline-white/20 bg-white/80 backdrop-blur-md dark:bg-gray-800/80"
   >
     {
       Object.entries(LANGUAGES).map(([key, value]) => {
         return (
           <button
-            class="flex w-full items-center justify-between bg-white/90 backdrop-blur-sm px-6 py-2 text-left transition-[background-color] duration-300 first-of-type:rounded-t-base last-of-type:rounded-b-base hover:bg-gray-50/90 dark:bg-gray-800/90 dark:hover:bg-gray-700/90"
+            class="flex w-full items-center justify-between bg-white/80 backdrop-blur-md px-6 py-2 text-left transition-[background-color] duration-300 first-of-type:rounded-t-base last-of-type:rounded-b-base hover:bg-white/90 dark:bg-gray-800/80 dark:hover:bg-gray-700/90"
             data-lang={key}
           >
-            <span class="mr-6 whitespace-nowrap">{value}</span>
+            <span class="mr-6 whitespace-nowrap" class:list={[
+              key === 'jp' ? 'font-japanese' : '',
+              'text-sm'
+            ]}>{value}</span>
 
             {key === lang && (
               <svg

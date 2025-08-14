@@ -60,19 +60,18 @@ export default function Search({
         }}
         className="flex w-full items-center gap-4 rounded-base px-6 py-2 outline outline-1 outline-black/20 transition-[background-color] hover:bg-black/20 dark:outline-white/20 dark:hover:bg-white/20 w400:hidden"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-4 w-4"
-          viewBox="0 0 24 24"
-          fill="none"
+        <svg 
+          className="h-5 w-5 text-[#374151] dark:text-[#e5e7eb]" 
+          xmlns="http://www.w3.org/2000/svg" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          stroke="currentColor" 
+          strokeWidth="2" 
+          strokeLinecap="round" 
+          strokeLinejoin="round"
         >
-          <path
-            d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z"
-            className="stroke-lightModeIcon dark:stroke-darkModeIcon"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          ></path>
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
         </svg>
 
         <p>{SEARCH[lang].search}</p>
@@ -83,19 +82,18 @@ export default function Search({
         }}
         className="hidden w400:inline-block"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6"
-          viewBox="0 0 24 24"
-          fill="none"
+        <svg 
+          className="h-5 w-5 text-[#374151] dark:text-[#e5e7eb]" 
+          xmlns="http://www.w3.org/2000/svg" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          stroke="currentColor" 
+          strokeWidth="2" 
+          strokeLinecap="round" 
+          strokeLinejoin="round"
         >
-          <path
-            d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z"
-            className="stroke-lightModeIcon dark:stroke-darkModeIcon"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          ></path>
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
         </svg>
       </button>
 

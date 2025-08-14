@@ -54,9 +54,9 @@ const index = getLinkIndex()
 ---
 
 <div
-  class="mb-20 grid grid-cols-2 gap-5 px-10 w800:px-8 w500:grid-cols-1 w500:px-5"
+  class="mb-16 grid grid-cols-2 gap-4 px-8 w800:px-6 w500:grid-cols-1 w500:px-4"
 >
-  <div>
+  <div class="flex justify-start">
     {
       index > 0 && index < flattenedLinksArray.length && (
         <PreviousNextPageLink
@@ -67,7 +67,7 @@ const index = getLinkIndex()
       )
     }
   </div>
-  <div>
+  <div class="flex justify-end">
     {
       index >= 0 && index < flattenedLinksArray.length - 1 && (
         <PreviousNextPageLink

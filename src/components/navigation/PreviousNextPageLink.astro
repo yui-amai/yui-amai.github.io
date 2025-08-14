@@ -12,15 +12,15 @@ const { t, link, text, isNext } = Astro.props as {
 <a
   title={t}
   class={clsx(
-    'flex items-center rounded-base border border-black/50 p-[10px] px-5 no-underline transition-colors hover:border-black dark:border-white/50 dark:hover:border-white',
+    'flex items-center rounded-base border border-black/50 p-2 px-4 no-underline transition-colors hover:border-black dark:border-white/50 dark:hover:border-white',
     isNext && 'justify-start flex-row-reverse',
   )}
   href={Astro.url.origin + '/' + link}
 >
   <svg
     class={clsx(
-      'h-8 w-8 flex-shrink-0 w600:hidden w500:inline',
-      isNext ? 'rotate-180 ml-4' : 'mr-4',
+      'h-6 w-6 flex-shrink-0 w600:hidden w500:inline',
+      isNext ? 'rotate-180 ml-3' : 'mr-3',
     )}
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
@@ -35,10 +35,10 @@ const { t, link, text, isNext } = Astro.props as {
   </svg>
 
   <div
-    class="block max-w-full overflow-hidden overflow-ellipsis whitespace-nowrap"
+    class="block max-w-[80%] overflow-hidden overflow-ellipsis whitespace-nowrap"
   >
-    <p class={clsx('text-sm opacity-80', isNext && 'text-right')}>{text}</p>
-    <span class="text-2xl w900:text-xl">
+    <p class={clsx('text-xs opacity-80', isNext && 'text-right')}>{text}</p>
+    <span class="text-lg w900:text-base">
       {t}
     </span>
   </div>
