@@ -47,9 +47,10 @@ const getLinkIndex = () => {
       return i
     }
   }
+  return -1 // Return -1 if no match found
 }
 
-const index = getLinkIndex() as number
+const index = getLinkIndex()
 ---
 
 <div
@@ -57,7 +58,7 @@ const index = getLinkIndex() as number
 >
   <div>
     {
-      index !== 0 && (
+      index > 0 && index < flattenedLinksArray.length && (
         <PreviousNextPageLink
           t={flattenedLinksArray[index - 1].t}
           link={flattenedLinksArray[index - 1].link}
@@ -68,7 +69,7 @@ const index = getLinkIndex() as number
   </div>
   <div>
     {
-      index !== flattenedLinksArray.length - 1 && (
+      index >= 0 && index < flattenedLinksArray.length - 1 && (
         <PreviousNextPageLink
           t={flattenedLinksArray[index + 1].t}
           link={flattenedLinksArray[index + 1].link}
