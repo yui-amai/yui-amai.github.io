@@ -6,7 +6,7 @@ import expressiveCode from 'astro-expressive-code'
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://yui-amai.github.io/',
+  site: 'https://yui-amai.github.io',
   integrations: [
     tailwind(),
     expressiveCode({

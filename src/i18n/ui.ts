@@ -17,14 +17,14 @@ export type LandingPageObj = {
 
 export const LANDING_PAGE: LanguageObject<LandingPageObj> = {
   en: {
-    description: 'Modern type-safe documentation theme for Astro.',
+    description: 'Personal blog and documentation site built with Astro.',
     getStartedBtnText: 'Get started',
     githubBtnText: 'Source code',
   },
-  sr: {
-    description: 'Moderna Astro tema za dokumentaciju sa Typescript podrškom.',
-    getStartedBtnText: 'Počni',
-    githubBtnText: 'Izvorni kod',
+  jp: {
+    description: 'Astroで構築された個人ブログとドキュメントサイト。',
+    getStartedBtnText: '始めましょう',
+    githubBtnText: 'ソースコード',
   },
 } as const
 
@@ -34,8 +34,8 @@ export const NAV: LanguageObject<{
   en: {
     documentation: 'Docs',
   },
-  sr: {
-    documentation: 'Dokumentacija',
+  jp: {
+    documentation: 'ドキュメント',
   },
 } as const
 
@@ -47,9 +47,9 @@ export const ON_THIS_PAGE: LanguageObject<{
     onThisPage: 'On this page',
     scrollToTop: 'Scroll to top',
   },
-  sr: {
-    onThisPage: 'Na ovoj stranici',
-    scrollToTop: 'Skroluj do vrha',
+  jp: {
+    onThisPage: 'このページで',
+    scrollToTop: 'トップにスクロール',
   },
 }
 
@@ -63,10 +63,10 @@ export const MISC: LanguageObject<{
     next: 'Next',
     previous: 'Previous',
   },
-  sr: {
-    editThisPage: 'Uredi ovu stranicu',
-    next: 'Sledeće',
-    previous: 'Prethodno',
+  jp: {
+    editThisPage: 'このページを編集',
+    next: '次へ',
+    previous: '前へ',
   },
 }
 
@@ -82,10 +82,10 @@ export const SEARCH: LanguageObject<{
     noResults: 'No results',
     results: 'Results',
   },
-  sr: {
-    search: 'Pretraži',
-    keepTyping: 'Nastavi da kucaš...',
-    noResults: 'Nema rezultata',
-    results: 'Rezultata',
+  jp: {
+    search: '検索',
+    keepTyping: '入力し続けて...',
+    noResults: '結果がありません',
+    results: '結果',
   },
 }
