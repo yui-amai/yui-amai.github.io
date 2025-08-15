@@ -46,13 +46,13 @@ const lang: LanguageKeys = langFromURL as LanguageKeys
   </button>
   <div
     id="language-dropdown"
-    class="duration invisible absolute right-0 top-16 w-min rounded-base opacity-0 outline outline-1 outline-black/20 transition-all dark:outline-white/20 bg-white/80 backdrop-blur-md dark:bg-gray-800/80"
+    class="duration invisible absolute right-0 top-16 w-min rounded-base opacity-0 outline outline-1 outline-black/20 transition-all dark:outline-white/20 bg-[rgba(235,236,244,0.8)] backdrop-blur-md dark:bg-[rgba(60,78,118,0.8)]"
   >
     {
       Object.entries(LANGUAGES).map(([key, value]) => {
         return (
           <button
-            class="flex w-full items-center justify-between bg-white/80 backdrop-blur-md px-6 py-2 text-left transition-[background-color] duration-300 first-of-type:rounded-t-base last-of-type:rounded-b-base hover:bg-white/90 dark:bg-gray-800/80 dark:hover:bg-gray-700/90"
+            class="flex w-full items-center justify-between bg-[rgba(235,236,244,0.8)] backdrop-blur-md px-6 py-2 text-left transition-[background-color] duration-300 first-of-type:rounded-t-base last-of-type:rounded-b-base hover:bg-[rgba(235,236,244,0.9)] dark:bg-[rgba(60,78,118,0.8)] dark:hover:bg-[rgba(60,78,118,0.9)]"
             data-lang={key}
           >
             <span class="mr-6 whitespace-nowrap" class:list={[

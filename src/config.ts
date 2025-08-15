@@ -6,7 +6,7 @@ export const PROJECT_NAME = "Yui Amai's Blog"
 
 export const SITE = {
   title: "Yui Amai's Blog",
-  description: 'Personal blog that records my academic journey and thoughts on research.',
+  description: 'Personal blog that records my academic journey and notes on research.',
   defaultLanguage: 'en_US', // don't mistaken this with DEFAULT_LANGUAGE_CODE below, this is used only for meta tags
 }
 // used for meta tags

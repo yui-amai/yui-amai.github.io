@@ -18,14 +18,14 @@ export default {
         w400: { max: '400px' },
       },
       colors: {
-        lightModeText: '#374151', // 深灰色，更易读
-        darkModeText: '#e5e7eb', // 稍微偏灰色，不会太刺眼
+        lightModeText: '#374151', // deep gray, readable in light mode
+        darkModeText: '#e5e7eb', // slightly grayish white, less eye-straining
 
         lightModeBg: colors.neutral[100],
         darkModeBg: colors.neutral[950],
 
-        lightModeIcon: '#374151', // 深灰色，与其他图标一致
-        darkModeIcon: '#e5e7eb', // 浅灰色，与其他图标一致
+        lightModeIcon: '#374151', // deep gray, consistent with other icons
+        darkModeIcon: '#e5e7eb', // light gray, consistent with other icons
 
         lightModeBgHover: colors.neutral[300],
         darkModeBgHover: colors.neutral[700],
@@ -37,13 +37,14 @@ export default {
           'linear-gradient(-20deg, #2b5876 0%, #4e4376 100%)',
       },
       borderRadius: {
-        base: '10px', // dont make this value greater than 30px because it can make some elements look weird e.g. search element and search results
+        base: '10px', // do not set above 30px or some elements may look odd (e.g., search UI and results)
       },
       fontFamily: {
         sans: ['Noto Serif JP', 'Noto Serif', 'Noto Sans', 'sans-serif'],
         japanese: ['Noto Serif JP', 'Noto Serif', 'Noto Sans', 'sans-serif'],
       },
       fontWeight: {
+        'extralight': '200',
         'light': '300',
         'normal': '400',
         'medium': '500',
