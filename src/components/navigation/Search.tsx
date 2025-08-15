@@ -221,7 +221,7 @@ export default function Search({
 
       {/* Dropdown results */}
       {isSearchActive && (
-        <div className="absolute top-full left-0 right-0 mt-2 bg-neutral-100/95 backdrop-blur-[100px] rounded-xl shadow-xl max-h-[400px] overflow-y-auto z-50 dark:bg-neutral-950/95">
+        <div className="absolute top-full left-0 right-0 mt-2 bg-white/95 backdrop-blur-[100px] border border-black/20 dark:border-white/20 rounded-xl shadow-xl max-h-[400px] overflow-y-auto z-50 dark:bg-black/90">
           <div className="p-4">
             {matchedItems.length > 0 && !message && (
               <p className="mb-3 text-sm text-[#6b7280] dark:text-[#9ca3af]">
