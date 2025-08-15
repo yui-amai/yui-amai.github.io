@@ -27,10 +27,10 @@ export default function SearchResults({
                     {item.lang && (
                       <span className={`text-xs px-2 py-1 rounded-full ${
                         item.lang === 'jp' 
-                          ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200' 
-                          : 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200'
+                          ? 'bg-[#C7D9DD] text-[#2D3748] dark:bg-[#2D6E7E] dark:text-[#e5e7eb]' 
+                          : 'bg-[#ADB2D4] text-[#2D3748] dark:bg-[#9290C3] dark:text-[#e5e7eb]'
                       }`}>
-                        {item.lang === 'jp' ? '日本語' : 'EN'}
+                        {item.lang === 'jp' ? 'JP' : 'EN'}
                       </span>
                     )}
                   </div>
