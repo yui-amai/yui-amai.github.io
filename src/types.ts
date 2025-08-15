@@ -10,6 +10,8 @@ export type Frontmatter = {
 
 export type MarkdownRecord = {
   url: string
+  lang?: 'en' | 'jp'
+  content?: string
 } & TitleDesc
 
 // sidebar types

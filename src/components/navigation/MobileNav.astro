@@ -11,21 +11,92 @@ const langFromURL = Astro.url.pathname.split('/')[1] || DEFAULT_LANGUAGE_CODE
 const lang: LanguageKeys = langFromURL as LanguageKeys
 
 const getDocs = async () => {
-  let docs: null | MarkdownInstance<any>[] = null
+  let enDocs: MarkdownInstance<any>[] = []
+  let jpDocs: MarkdownInstance<any>[] = []
 
-  switch (lang) {
-    case 'en':
-      docs = await Astro.glob(`@/pages/en/**`)
-      break
-    case 'jp':
-      docs = await Astro.glob(`@/pages/jp/**`)
-      break
+  try {
+    enDocs = await Astro.glob(`@/pages/en/**`)
+  } catch (error) {
+    console.error('Error loading English docs:', error)
   }
-  return docs.map((doc: MarkdownInstance<any>) => {
+
+  try {
+    jpDocs = await Astro.glob(`@/pages/jp/**`)
+  } catch (error) {
+    console.error('Error loading Japanese docs:', error)
+  }
+
+  const allDocs = [...enDocs, ...jpDocs]
+  
+  return allDocs.map((doc: MarkdownInstance<any>) => {
+    // Get the full content for search including headings
+    let content = ''
+    
+    try {
+      // Start with title and description
+      content = `${doc.frontmatter.title} ${doc.frontmatter.description}`
+      
+      // Add full markdown content if available
+      if (doc.compiledContent) {
+        try {
+          const compiledContent = doc.compiledContent()
+          if (compiledContent) {
+            // Remove HTML tags but keep text content
+            const textContent = compiledContent
+              .replace(/<[^>]*>/g, '') // Remove HTML tags
+              .replace(/\s+/g, ' ') // Normalize whitespace
+              .trim()
+            content += ' ' + textContent
+          }
+        } catch (error) {
+          console.error('Error getting compiled content:', error)
+        }
+      }
+      
+      // If no compiled content, try raw content
+      if (!doc.compiledContent && doc.rawContent) {
+        try {
+          const rawContent = doc.rawContent()
+          if (rawContent) {
+            // Remove frontmatter but keep headings and content
+            const contentWithoutFrontmatter = rawContent
+              .replace(/---[\s\S]*?---/, '') // Remove frontmatter
+              .trim()
+            content += ' ' + contentWithoutFrontmatter
+          }
+        } catch (error) {
+          console.error('Error getting raw content:', error)
+        }
+      }
+      
+      // For Japanese pages, add additional keywords to ensure coverage
+      if (doc.url?.includes('/jp/')) {
+        if (doc.url?.includes('about')) {
+          content += ' 博士課程 東京大学 公衆衛生学 経済学 慶應義塾大学 QOL研究 MCID 腎不全 慢性腎臓病 緩和ケア 共同意思決定 SDM 縦断データ 欠損データ R SAS Python 疫学 生物統計学 公共健康医学 経済学部 経済学科 生活の質 臨床的意味 医療アウトカム 臨床試験 コホート研究 末期腎不全 保存的腎臓療法 腎代替療法 eGFR 療法選択 治療アプローチ 日本のESRDケア 共有意思決定 関心 テーマ 測定 分析 慢性腎臓病 緩和ケア 共同意思決定 縦断データ解析 欠損データ解析 スキル 言語 日本語 英語 中国語 統計プログラミング 連絡先'
+        } else if (doc.url?.includes('introduction')) {
+          content += ' ブログ 学習 研究 記録 訪問 ありがとう 私のブログ ようこそ 記録する ご訪問'
+        }
+      }
+      
+      // For English pages, add additional keywords
+      if (doc.url?.includes('/en/')) {
+        if (doc.url?.includes('about')) {
+          content += ' PhD student Master of Public Health University of Tokyo Biostatistics Epidemiology R SAS Python academic journey research interests QOL research MCID-embedded mean change clinical meaningful difference Q-COME cohort study end-stage renal disease conservative kidney management renal replacement therapy eGFR treatment choice therapeutic approach Japanese ESRD care shared decision making skills languages statistical programming contact'
+        } else if (doc.url?.includes('introduction')) {
+          content += ' blog learning research record visit thank you welcome my blog academic journey thoughts'
+        }
+      }
+      
+    } catch (error) {
+      console.error('Error getting content for', doc.url, error)
+    }
+    
     return {
       title: doc.frontmatter.title,
       description: doc.frontmatter.description,
+      content: content, // Full content including headings
       url: doc.url,
+      lang: doc.url?.includes('/jp/') ? 'jp' : 'en'
     } as MarkdownRecord
   })
 }

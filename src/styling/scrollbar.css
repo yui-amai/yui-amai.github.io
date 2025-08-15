@@ -1,26 +1,40 @@
-body {
-  --sb-track-color: #f5f5f5;
-  --sb-thumb-color: #00000080;
-  --dark-sb-track-color: #0a0a0a;
-  --dark-sb-thumb-color: #ffffff80;
-}
-
+/* Main page scrollbar */
 body::-webkit-scrollbar {
-  width: 16px;
-}
-
-.sidebar::-webkit-scrollbar,
-.on-this-page::-webkit-scrollbar,
-.search-list::-webkit-scrollbar {
-  width: 8px;
-}
-
-html.dark body::-webkit-scrollbar-track {
-  background: var(--dark-sb-track-color);
+  width: 6px;
 }
 
 body::-webkit-scrollbar-track {
-  background: var(--sb-track-color);
+  background: #f5f5f5;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #00000040;
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: #00000070;
+}
+
+/* Dark mode main scrollbar */
+html.dark body::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+html.dark body::-webkit-scrollbar-thumb {
+  background: #d1d5db80;
+  border-radius: 10px;
+}
+
+html.dark body::-webkit-scrollbar-thumb:hover {
+  background: #d1d5dba0;
+}
+
+/* Sidebar and other element scrollbars */
+.sidebar::-webkit-scrollbar,
+.on-this-page::-webkit-scrollbar,
+.search-list::-webkit-scrollbar {
+  width: 4px;
 }
 
 .sidebar::-webkit-scrollbar-track,
@@ -30,33 +44,47 @@ body::-webkit-scrollbar-track {
   border-radius: 10px;
 }
 
-html.dark body::-webkit-scrollbar-thumb,
-html.dark .sidebar::-webkit-scrollbar-thumb,
-html.dark .on-this-page::-webkit-scrollbar-thumb,
-html.dark .search-list::-webkit-scrollbar-thumb {
-  background: var(--dark-sb-thumb-color);
-}
-
-body::-webkit-scrollbar-thumb,
 .sidebar::-webkit-scrollbar-thumb,
 .on-this-page::-webkit-scrollbar-thumb,
 .search-list::-webkit-scrollbar-thumb {
-  background: var(--sb-thumb-color);
+  background: #00000040;
   border-radius: 10px;
 }
 
+.sidebar::-webkit-scrollbar-thumb:hover,
+.on-this-page::-webkit-scrollbar-thumb:hover,
+.search-list::-webkit-scrollbar-thumb:hover {
+  background: #00000070;
+}
+
+html.dark .sidebar::-webkit-scrollbar-thumb,
+html.dark .on-this-page::-webkit-scrollbar-thumb,
+html.dark .search-list::-webkit-scrollbar-thumb {
+  background: #d1d5db80;
+  border-radius: 10px;
+}
+
+html.dark .sidebar::-webkit-scrollbar-thumb:hover,
+html.dark .on-this-page::-webkit-scrollbar-thumb:hover,
+html.dark .search-list::-webkit-scrollbar-thumb:hover {
+  background: #d1d5dba0;
+}
+
+/* Firefox support */
 @supports not selector(::-webkit-scrollbar) {
   html.dark body,
   html.dark .sidebar,
   html.dark .on-this-page,
   html.dark .search-list {
-    scrollbar-color: var(--dark-sb-thumb-color) var(--dark-sb-track-color);
+    scrollbar-color: #d1d5db80 #0a0a0a;
+    scrollbar-width: thin;
   }
 
   .sidebar,
   body,
   .on-this-page,
   .search-list {
-    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+    scrollbar-color: #00000040 #f5f5f5;
+    scrollbar-width: thin;
   }
 }

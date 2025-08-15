@@ -45,7 +45,7 @@ const lang = Astro.url.pathname.split('/')[1] || DEFAULT_LANGUAGE_CODE
         <div class="mt-12 flex items-center w600:mt-9">
           <a
             href={`/${lang}${GET_STARTED_LINK}`}
-            class="flex h-12 items-center justify-center rounded-base border border-[#374151] px-6 text-center text-lg text-[#374151] transition-all hover:bg-[#374151] hover:text-white dark:border-[#e5e7eb] dark:text-[#e5e7eb] dark:hover:bg-[#e5e7eb] dark:hover:text-[#2b5876] w600:text-base w400:h-10 w400:px-3"
+            class="flex h-12 items-center justify-center rounded-2xl border border-[#374151] px-6 text-center text-lg text-[#374151] transition-all duration-300 ease-out hover:bg-[#374151] hover:text-white hover:scale-[1.05] active:scale-[0.95] focus:outline-none focus:ring-2 focus:ring-[#374151]/40 focus:ring-offset-2 focus:ring-offset-white w600:text-base w400:h-10 w400:px-3 dark:border-[#e5e7eb] dark:text-[#e5e7eb] dark:hover:bg-[#e5e7eb] dark:hover:text-[#2b5876] dark:focus:ring-[#e5e7eb]/40 dark:focus:ring-offset-[#2b5876]"
             >{t.getStartedBtnText}
           </a>
         </div>

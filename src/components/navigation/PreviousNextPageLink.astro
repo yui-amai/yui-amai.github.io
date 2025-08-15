@@ -12,14 +12,15 @@ const { t, link, text, isNext } = Astro.props as {
 <a
   title={t}
   class={clsx(
-    'flex items-center rounded-base border border-black/50 p-2 px-4 no-underline transition-colors hover:border-black dark:border-white/50 dark:hover:border-white',
+    'relative flex items-center rounded-base border border-black/50 p-2 px-4 no-underline transition-all duration-200 hover:border-black dark:border-white/50 dark:hover:border-white active:scale-95 overflow-hidden',
     isNext && 'justify-start flex-row-reverse',
   )}
   href={Astro.url.origin + '/' + link}
+  id={`ripple-btn-${Math.random().toString(36).substr(2, 9)}`}
 >
   <svg
     class={clsx(
-      'h-6 w-6 flex-shrink-0 w600:hidden w500:inline',
+      'relative z-10 h-6 w-6 flex-shrink-0 w600:hidden w500:inline',
       isNext ? 'rotate-180 ml-3' : 'mr-3',
     )}
     xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +36,7 @@ const { t, link, text, isNext } = Astro.props as {
   </svg>
 
   <div
-    class="block max-w-[80%] overflow-hidden overflow-ellipsis whitespace-nowrap"
+    class="relative z-10 block max-w-[80%] overflow-hidden overflow-ellipsis whitespace-nowrap"
   >
     <p class={clsx('text-xs opacity-80', isNext && 'text-right')}>{text}</p>
     <span class="text-lg w900:text-base">
@@ -43,3 +44,58 @@ const { t, link, text, isNext } = Astro.props as {
     </span>
   </div>
 </a>
+
+<script>
+  // Ripple effect for navigation buttons
+  document.addEventListener('astro:page-load', () => {
+    const buttons = document.querySelectorAll('[id^="ripple-btn-"]')
+    
+    buttons.forEach(button => {
+      button.addEventListener('mousedown', createRipple as EventListener)
+      button.addEventListener('touchstart', createRipple as EventListener)
+    })
+  })
+
+  function createRipple(event: MouseEvent | TouchEvent) {
+    const button = event.currentTarget as HTMLElement
+    const rect = button.getBoundingClientRect()
+    
+    // Get click position
+    const x = (event instanceof MouseEvent ? event.clientX : event.touches[0].clientX) - rect.left
+    const y = (event instanceof MouseEvent ? event.clientY : event.touches[0].clientY) - rect.top
+    
+    // Create ripple element
+    const ripple = document.createElement('span')
+    const size = Math.max(rect.width, rect.height)
+    
+    ripple.style.cssText = `
+      position: absolute;
+      left: ${x - size / 2}px;
+      top: ${y - size / 2}px;
+      width: ${size}px;
+      height: ${size}px;
+      background: ${document.documentElement.classList.contains('dark') ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.1)'};
+      border-radius: 50%;
+      transform: scale(0);
+      animation: ripple-animation 0.6s ease-out;
+      pointer-events: none;
+      z-index: 5;
+    `
+    
+    button.appendChild(ripple)
+    
+    // Remove ripple after animation
+    setTimeout(() => {
+      ripple.remove()
+    }, 600)
+  }
+</script>
+
+<style>
+  @keyframes ripple-animation {
+    to {
+      transform: scale(4);
+      opacity: 0;
+    }
+  }
+</style>

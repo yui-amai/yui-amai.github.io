@@ -10,25 +10,25 @@ import '@fontsource/karla/400.css'
 import '@fontsource/karla/500.css'
 import '@fontsource/karla/700.css'
 
-// Add Noto Sans - broad language coverage
+// 添加 Noto Sans 字体支持 - 同时支持中文、日文、英文
 import '@fontsource/noto-sans/400.css'
 import '@fontsource/noto-sans/500.css'
 import '@fontsource/noto-sans/600.css'
 import '@fontsource/noto-sans/700.css'
 
-// Add Noto Serif
+// 添加 Noto Serif 字体支持
 import '@fontsource/noto-serif/400.css'
 import '@fontsource/noto-serif/500.css'
 import '@fontsource/noto-serif/600.css'
 import '@fontsource/noto-serif/700.css'
 
-// Add Noto Serif Japanese
+// 添加 Noto Serif Japanese 字体支持
 import '@fontsource/noto-serif-jp/400.css'
 import '@fontsource/noto-serif-jp/500.css'
 import '@fontsource/noto-serif-jp/600.css'
 import '@fontsource/noto-serif-jp/700.css'
 
-// Add Font Awesome icon CSS
+// 添加 Font Awesome 图标支持
 import '@fortawesome/fontawesome-free/css/all.css'
 
 // custom styling
@@ -40,27 +40,27 @@ const { frontmatter } = Astro.props as {
   frontmatter?: Frontmatter
 }
 
-// Get current page language from URL
+// 获取当前页面语言
 const lang = Astro.url.pathname.split('/')[1] || DEFAULT_LANGUAGE_CODE
 ---
 
 <style is:global>
-  /* Base font settings */
+  /* 基础字体设置 */
   body {
     font-family: 'Noto Serif JP', 'Noto Serif', 'Noto Sans', sans-serif;
     font-weight: 300;
   }
   
-  /* Use Noto Serif for English pages */
+  /* 英文页面使用 Noto Serif */
   [lang="en"] {
-    font-family: 'Noto Serif', 'Noto Sans', sans-serif !important;
+    font-family: 'Noto Serif', 'Noto Serif JP','Noto Sans', sans-serif !important;
   }
   
   [lang="en"] * {
-    font-family: 'Noto Serif', 'Noto Sans', sans-serif !important;
+    font-family: 'Noto Serif', 'Noto Serif JP','Noto Sans', sans-serif !important;
   }
   
-  /* Use Noto Serif JP for Japanese pages */
+  /* 日文页面使用 Noto Serif JP */
   [lang="jp"] {
     font-family: 'Noto Serif','Noto Serif JP', 'Noto Sans', sans-serif !important;
   }
@@ -69,7 +69,7 @@ const lang = Astro.url.pathname.split('/')[1] || DEFAULT_LANGUAGE_CODE
     font-family: 'Noto Serif', 'Noto Serif JP', 'Noto Sans', sans-serif !important;
   }
   
-  /* Force override Tailwind font family in prose blocks */
+  /* 强制覆盖 Tailwind 的字体设置 */
   .prose[lang="jp"] *,
   .prose-lg[lang="jp"] *,
   .prose-sm[lang="jp"] *,
@@ -82,16 +82,6 @@ const lang = Astro.url.pathname.split('/')[1] || DEFAULT_LANGUAGE_CODE
   .prose-sm[lang="en"] *,
   .custom-prose[lang="en"] * {
     font-family: 'Noto Serif', 'Noto Sans', sans-serif !important;
-  }
-  
-  /* Ensure .font-japanese always uses Japanese fonts regardless of page lang */
-  .font-japanese {
-    font-family: 'Noto Serif JP', 'Noto Serif', 'Noto Sans', sans-serif !important;
-  }
-  
-  /* Ensure Japanese text inside language switcher uses proper font */
-  .font-japanese * {
-    font-family: 'Noto Serif JP', 'Noto Serif', 'Noto Sans', sans-serif !important;
   }
 </style>
 
@@ -119,17 +109,17 @@ const lang = Astro.url.pathname.split('/')[1] || DEFAULT_LANGUAGE_CODE
       <div class="mx-auto max-w-4xl px-5">
         <div class="flex flex-col items-center space-y-2">
           <!-- Logo signature - only show on non-homepage -->
-          {Astro.url.pathname !== '/' && Astro.url.pathname !== '/index.html' && Astro.url.pathname !== '/jp/' && (
+          {Astro.url.pathname.split('/').length > 2 && (
             <>
               <img 
                 src="/images/logo4_day.png" 
                 alt="Blog signature logo" 
-                class="h-12 w-auto opacity-70 hover:opacity-100 transition-opacity duration-300 dark:hidden"
+                class="h-12 w-auto opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300 ease-out dark:hidden"
               />
               <img 
                 src="/images/logo4_night.png" 
                 alt="Blog signature logo" 
-                class="h-12 w-auto opacity-70 hover:opacity-100 transition-opacity duration-300 hidden dark:block"
+                class="h-12 w-auto opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300 ease-out hidden dark:block"
               />
             </>
           )}
@@ -151,7 +141,7 @@ const lang = Astro.url.pathname.split('/')[1] || DEFAULT_LANGUAGE_CODE
 
   function init() {
     document.documentElement.classList.add('scroll-smooth')
-    // Manually add scroll-smooth because setting it directly on html didn't work reliably
+    // adding scroll-smooth class to html tag manually didn't work so I'm adding that class this way
 
     if (
       localStorage.theme === 'dark' ||
@@ -175,7 +165,7 @@ const lang = Astro.url.pathname.split('/')[1] || DEFAULT_LANGUAGE_CODE
       document.body.classList.add('duration-300', 'transition-colors')
     }, 300)
 
-    // Add transition classes with a 300ms delay to avoid initial flash
+    // im adding those classes with 300ms delay, so theres no flashing on inital page load
   }
 
   init()
