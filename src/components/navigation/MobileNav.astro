@@ -15,26 +15,44 @@ const getDocs = async () => {
   let jpDocs: MarkdownInstance<any>[] = []
 
   try {
-    enDocs = await Astro.glob(`@/pages/en/**`)
+    enDocs = await Astro.glob(`@/pages/en/**/*.{md,mdx}`)
+    console.log('MobileNav - Loaded English docs:', enDocs.length)
   } catch (error) {
-    console.error('Error loading English docs:', error)
+    console.error('MobileNav - Error loading English docs:', error)
   }
 
   try {
-    jpDocs = await Astro.glob(`@/pages/jp/**`)
+    jpDocs = await Astro.glob(`@/pages/jp/**/*.{md,mdx}`)
+    console.log('MobileNav - Loaded Japanese docs:', jpDocs.length)
   } catch (error) {
-    console.error('Error loading Japanese docs:', error)
+    console.error('MobileNav - Error loading Japanese docs:', error)
   }
 
   const allDocs = [...enDocs, ...jpDocs]
+  console.log('MobileNav - Total docs loaded:', allDocs.length)
   
-  return allDocs.map((doc: MarkdownInstance<any>) => {
+  // Filter out any invalid docs
+  const validDocs = allDocs.filter(doc => {
+    if (!doc || !doc.frontmatter) {
+      console.warn('MobileNav - Invalid doc found:', doc)
+      return false
+    }
+    return true
+  })
+  
+  console.log('MobileNav - Valid docs after filtering:', validDocs.length)
+  
+  return validDocs.map((doc: MarkdownInstance<any>) => {
     // Get the full content for search including headings
     let content = ''
     
+    // Add safety checks for frontmatter
+    const title = doc.frontmatter?.title || 'Untitled'
+    const description = doc.frontmatter?.description || 'No description'
+    
     try {
       // Start with title and description
-      content = `${doc.frontmatter.title} ${doc.frontmatter.description}`
+      content = `${title} ${description}`
       
       // Add full markdown content if available
       if (doc.compiledContent) {
@@ -92,8 +110,8 @@ const getDocs = async () => {
     }
     
     return {
-      title: doc.frontmatter.title,
-      description: doc.frontmatter.description,
+      title: title,
+      description: description,
       content: content, // Full content including headings
       url: doc.url,
       lang: doc.url?.includes('/jp/') ? 'jp' : 'en'
@@ -156,35 +174,38 @@ const docs: MarkdownRecord[] = await getDocs()
   class="fixed left-0 top-20 z-50 hidden h-[calc(100dvh-80px)] w-full bg-lightModeBg bg-opacity-95 bg-lightModeGradient py-8 transition-colors duration-[inherit] dark:bg-darkModeBg dark:bg-darkModeGradient"
 >
   <div class="w-full px-8 w500:px-5">
-    <div class="flex h-11 w-full items-center gap-10 w400:justify-between">
+    <div class="flex h-11 w-full items-center w400:justify-between">
       <Search docs={docs} lang={lang} client:only />
 
-      <a class="hidden w500:inline" target="_blank" href={GITHUB_REPO_URL}>
-        <svg
-          class="h-6 w-6"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1024 1024"
-          ><path
-            class="fill-[#374151] transition-colors dark:fill-[#e5e7eb]"
-            d="m1024 525c0 225.9-146.6 417.9-348.8 485.8-25.6 5.1-35.2-10.9-35.2-24.4 0-17.2.6-72.3.6-140.8 0-48-16-78.7-34.5-94.7 113.9-12.8 233.6-56.3 233.6-252.8 0-56.3-19.9-101.7-52.5-137.6 5.1-12.8 23-65.3-5.1-135.7 0 0-42.9-14-140.8 52.5-41-11.5-84.5-17.3-128-17.3s-87.1 5.8-128 17.3c-97.9-65.9-140.8-52.5-140.8-52.5-28.2 70.4-10.3 122.9-5.1 135.7-32.7 35.9-52.5 81.9-52.5 137.6 0 195.9 119 240 232.9 252.8-14.7 12.8-28.1 35.2-32.6 68.5-29.4 13.4-103 35.2-149.1-42.2-9.6-15.4-38.4-53.2-78.7-52.5-42.9.6-17.3 24.3.6 33.9 21.8 12.2 46.7 57.6 52.5 72.3 10.2 28.8 43.5 83.9 172.1 60.2 0 42.9.7 83.2.7 95.3 0 13.5-9.6 28.8-35.2 24.4-203.5-67.9-350.1-259.2-350.1-485.8 0-282.9 229.1-512 512-512s512 229.1 512 512z"
-            fill-rule="evenodd"></path></svg
-        >
-      </a>
+      <!-- Other components that should be hidden when search is active -->
+      <div id="mobile-other-components" class="flex items-center gap-10 ml-auto">
+        <a class="hidden w500:inline" target="_blank" href={GITHUB_REPO_URL}>
+          <svg
+            class="h-6 w-6"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1024 1024"
+            ><path
+              class="fill-[#374151] transition-colors dark:fill-[#e5e7eb]"
+              d="m1024 525c0 225.9-146.6 417.9-348.8 485.8-25.6 5.1-35.2-10.9-35.2-24.4 0-17.2.6-72.3.6-140.8 0-48-16-78.7-34.5-94.7 113.9-12.8 233.6-56.3 233.6-252.8 0-56.3-19.9-101.7-52.5-137.6 5.1-12.8 23-65.3-5.1-135.7 0 0-42.9-14-140.8 52.5-41-11.5-84.5-17.3-128-17.3s-87.1 5.8-128 17.3c-97.9-65.9-140.8-52.5-140.8-52.5-28.2 70.4-10.3 122.9-5.1 135.7-32.7 35.9-52.5 81.9-52.5 137.6 0 195.9 119 240 232.9 252.8-14.7 12.8-28.1 35.2-32.6 68.5-29.4 13.4-103 35.2-149.1-42.2-9.6-15.4-38.4-53.2-78.7-52.5-42.9.6-17.3 24.3.6 33.9 21.8 12.2 46.7 57.6 52.5 72.3 10.2 28.8 43.5 83.9 172.1 60.2 0 42.9.7 83.2.7 95.3 0 13.5-9.6 28.8-35.2 24.4-203.5-67.9-350.1-259.2-350.1-485.8 0-282.9 229.1-512 512-512s512 229.1 512 512z"
+              fill-rule="evenodd"></path></svg
+          >
+        </a>
 
-      <a class="hidden w500:inline" target="_blank" href="https://x.com/ame_sph">
-        <svg
-          class="h-6 w-6"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          ><path
-            class="fill-lightModeIcon transition-colors dark:fill-darkModeIcon"
-            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
-            fill-rule="evenodd"></path></svg
-        >
-      </a>
+        <a class="hidden w500:inline" target="_blank" href="https://x.com/ame_sph">
+          <svg
+            class="h-6 w-6"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            ><path
+              class="fill-lightModeIcon transition-colors dark:fill-darkModeIcon"
+              d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+              fill-rule="evenodd"></path></svg
+          >
+        </a>
 
-      <div class="hidden w500:block">
-        <ThemeSwitcher />
+        <div class="hidden w500:block">
+          <ThemeSwitcher />
+        </div>
       </div>
     </div>
 
@@ -192,9 +213,18 @@ const docs: MarkdownRecord[] = await getDocs()
       class="my-4 h-px w-full border-0 bg-black/20 outline-none dark:bg-white/20"
     />
 
-    <aside class="sidebar h-[calc(100dvh-188px)] w-full overflow-y-auto">
-      <SidebarLinks lang={lang} />
-    </aside>
+    <!-- Content area that changes based on search state -->
+    <div id="mobile-content-area" class="w-full">
+      <!-- Default content (Introduction and About Me) -->
+      <aside id="mobile-default-content" class="sidebar h-[calc(100dvh-188px)] w-full overflow-y-auto">
+        <SidebarLinks lang={lang} />
+      </aside>
+      
+      <!-- Search results area (hidden by default) -->
+      <div id="mobile-search-results" class="hidden w-full">
+        <!-- This will be populated by the Search component -->
+      </div>
+    </div>
   </div>
 </div>
 
@@ -202,6 +232,9 @@ const docs: MarkdownRecord[] = await getDocs()
   const init = () => {
     const btn = document.querySelector('#hamburger-btn')
     const mobileHamburger = document.querySelector('#mobile-hamburger')
+    const otherComponents = document.querySelector('#mobile-other-components')
+    const defaultContent = document.querySelector('#mobile-default-content')
+    const searchResults = document.querySelector('#mobile-search-results')
 
     const hamburgerIcon = document.querySelector('#hamburger-btn svg#hamburger')
     const closeIcon = document.querySelector('#hamburger-btn svg#close')
@@ -216,6 +249,30 @@ const docs: MarkdownRecord[] = await getDocs()
       mobileHamburger?.classList.toggle('hidden')
       hamburgerIcon?.classList.toggle('hidden')
       closeIcon?.classList.toggle('hidden')
+    })
+
+    // Listen for search state changes from Search component
+    window.addEventListener('searchStateChange', (event: any) => {
+      const isSearching = event.detail.isSearching
+      
+      if (otherComponents) {
+        if (isSearching) {
+          otherComponents.classList.add('hidden')
+        } else {
+          otherComponents.classList.remove('hidden')
+        }
+      }
+      
+      // Toggle content visibility
+      if (defaultContent && searchResults) {
+        if (isSearching) {
+          defaultContent.classList.add('hidden')
+          searchResults.classList.remove('hidden')
+        } else {
+          defaultContent.classList.remove('hidden')
+          searchResults.classList.add('hidden')
+        }
+      }
     })
   }
 

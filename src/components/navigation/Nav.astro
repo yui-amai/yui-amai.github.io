@@ -31,26 +31,44 @@ const getDocs = async () => {
   let jpDocs: MarkdownInstance<any>[] = []
 
   try {
-    enDocs = await Astro.glob(`@/pages/en/**`)
+    enDocs = await Astro.glob(`@/pages/en/**/*.{md,mdx}`)
+    console.log('Loaded English docs:', enDocs.length)
   } catch (error) {
     console.error('Error loading English docs:', error)
   }
 
   try {
-    jpDocs = await Astro.glob(`@/pages/jp/**`)
+    jpDocs = await Astro.glob(`@/pages/jp/**/*.{md,mdx}`)
+    console.log('Loaded Japanese docs:', jpDocs.length)
   } catch (error) {
     console.error('Error loading Japanese docs:', error)
   }
 
   const allDocs = [...enDocs, ...jpDocs]
+  console.log('Total docs loaded:', allDocs.length)
   
-  return allDocs.map((doc: MarkdownInstance<any>) => {
+  // Filter out any invalid docs
+  const validDocs = allDocs.filter(doc => {
+    if (!doc || !doc.frontmatter) {
+      console.warn('Invalid doc found:', doc)
+      return false
+    }
+    return true
+  })
+  
+  console.log('Valid docs after filtering:', validDocs.length)
+  
+  return validDocs.map((doc: MarkdownInstance<any>) => {
     // Get the full content for search including headings
     let content = ''
     
+    // Add safety checks for frontmatter - define outside try block
+    const title = doc.frontmatter?.title || 'Untitled'
+    const description = doc.frontmatter?.description || 'No description'
+    
     try {
       // Start with title and description
-      content = `${doc.frontmatter.title} ${doc.frontmatter.description}`
+      content = `${title} ${description}`
       
       // Add full markdown content if available
       if (doc.compiledContent) {
@@ -110,8 +128,8 @@ const getDocs = async () => {
     console.log(`Doc: ${doc.url}, Content length: ${content.length}, Content preview: ${content.substring(0, 200)}`) // Debug log
     
     return {
-      title: doc.frontmatter.title,
-      description: doc.frontmatter.description,
+      title: title,
+      description: description,
       content: content, // Full content including headings
       url: doc.url,
       lang: doc.url?.includes('/jp/') ? 'jp' : 'en'
@@ -135,7 +153,7 @@ const docs: MarkdownRecord[] = await getDocs()
         aria-label="Home"
       >
         <div class="flex items-center">
-          <svg class="h-8 w-8 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" aria-hidden="true">
+          <svg class="h-8 w-8 mr-3 w500:h-6 w500:w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" aria-hidden="true">
             <defs>
               <linearGradient id="navGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" style="stop-color:#2b5876;stop-opacity:1" />
@@ -148,7 +166,7 @@ const docs: MarkdownRecord[] = await getDocs()
             </defs>
             <path d="M160 384C107 384 64 341 64 288C64 245.5 91.6 209.4 129.9 196.8C128.6 190.1 128 183.1 128 176C128 114.1 178.1 64 240 64C283.1 64 320.5 88.3 339.2 124C353.9 106.9 375.7 96 400 96C444.2 96 480 131.8 480 176C480 181.5 479.4 186.8 478.4 192C478.9 192 479.5 192 480 192C533 192 576 235 576 288C576 341 533 384 480 384L160 384zM161.6 452.2C162.7 449.7 165.2 448 168 448C170.8 448 173.3 449.6 174.4 452.2L204.6 520.4C206.8 525.5 208 530.9 208 536.4C208 558.3 189.9 576 168 576C146.1 576 128 558.3 128 536.4C128 530.9 129.2 525.4 131.4 520.4L161.6 452.2zM313.6 452.2C314.7 449.7 317.2 448 320 448C322.8 448 325.3 449.6 326.4 452.2L356.6 520.4C358.8 525.5 360 530.9 360 536.4C360 558.3 341.9 576 320 576C298.1 576 280 558.3 280 536.4C280 530.9 281.2 525.4 283.4 520.4L313.6 452.2zM435.4 520.4L465.6 452.2C466.7 449.7 469.2 448 472 448C474.8 448 477.3 449.6 478.4 452.2L508.6 520.4C510.8 525.5 512 530.9 512 536.4C512 558.3 493.9 576 472 576C450.1 576 432 558.3 432 536.4C432 530.9 433.2 525.4 435.4 520.4z" class="fill-[url(#navGradient)] dark:fill-[url(#navGradientDark)]"/>
           </svg>
-          <h2 class="text-xl font-light w500:text-lg">{PROJECT_NAME}</h2>
+          <h2 class="text-xl font-light w500:text-base w500:whitespace-nowrap">{PROJECT_NAME}</h2>
         </div>
       </a>
 
@@ -158,13 +176,7 @@ const docs: MarkdownRecord[] = await getDocs()
     </div>
 
     <div class="flex items-center text-lg">
-      {
-        isLandingPage && (
-          <a class="mr-10 hover:opacity-70 w800:hidden" href={docsLink}>
-            {NAV[lang].documentation}
-          </a>
-        )
-      }
+
       <a
         class="mr-10 hover:opacity-70 w500:hidden"
         target="_blank"

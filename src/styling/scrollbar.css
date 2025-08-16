@@ -1,4 +1,8 @@
 /* Main page scrollbar */
+html {
+  overflow-y: scroll;
+}
+
 body::-webkit-scrollbar {
   width: 6px;
 }
@@ -8,7 +12,7 @@ body::-webkit-scrollbar-track {
 }
 
 body::-webkit-scrollbar-thumb {
-  background: #00000040;
+  background: #00000008;
   border-radius: 10px;
 }
 
@@ -22,7 +26,7 @@ html.dark body::-webkit-scrollbar-track {
 }
 
 html.dark body::-webkit-scrollbar-thumb {
-  background: #d1d5db80;
+  background: #d1d5db08;
   border-radius: 10px;
 }
 
@@ -47,7 +51,7 @@ html.dark body::-webkit-scrollbar-thumb:hover {
 .sidebar::-webkit-scrollbar-thumb,
 .on-this-page::-webkit-scrollbar-thumb,
 .search-list::-webkit-scrollbar-thumb {
-  background: #00000040;
+  background: #00000008;
   border-radius: 10px;
 }
 
@@ -60,7 +64,7 @@ html.dark body::-webkit-scrollbar-thumb:hover {
 html.dark .sidebar::-webkit-scrollbar-thumb,
 html.dark .on-this-page::-webkit-scrollbar-thumb,
 html.dark .search-list::-webkit-scrollbar-thumb {
-  background: #d1d5db80;
+  background: #d1d5db08;
   border-radius: 10px;
 }
 
@@ -72,11 +76,15 @@ html.dark .search-list::-webkit-scrollbar-thumb:hover {
 
 /* Firefox support */
 @supports not selector(::-webkit-scrollbar) {
+  html {
+    overflow-y: scroll;
+  }
+  
   html.dark body,
   html.dark .sidebar,
   html.dark .on-this-page,
   html.dark .search-list {
-    scrollbar-color: #d1d5db80 #0a0a0a;
+    scrollbar-color: #d1d5db08 #0a0a0a;
     scrollbar-width: thin;
   }
 
@@ -84,7 +92,7 @@ html.dark .search-list::-webkit-scrollbar-thumb:hover {
   body,
   .on-this-page,
   .search-list {
-    scrollbar-color: #00000040 #f5f5f5;
+    scrollbar-color: #00000008 #f5f5f5;
     scrollbar-width: thin;
   }
 }

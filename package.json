@@ -10,7 +10,9 @@
     "astro": "astro",
     "format": "prettier '**/*.{cjs,mjs,ts,tsx,md,mdx,json,astro}' --write",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "generate-blog-config": "node scripts/generate-blog-config.mjs",
+    "build:with-config": "npm run generate-blog-config && npm run build"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.2",
@@ -29,6 +31,7 @@
     "astro-expressive-code": "^0.33.4",
     "clsx": "^2.1.0",
     "fuse.js": "^7.0.0",
+    "gray-matter": "^4.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tailwindcss": "^3.4.10",

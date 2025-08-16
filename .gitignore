@@ -19,3 +19,7 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+# Blog system documentation (not needed in repository)
+BLOG_USAGE_GUIDE.md
+BLOG_SYSTEM_SUMMARY.md
