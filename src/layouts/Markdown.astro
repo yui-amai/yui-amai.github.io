@@ -37,7 +37,7 @@ const { frontmatter, headings } = Astro.props as {
         {Astro.url.pathname.includes('/blog/') && frontmatter.pubDate && (
           <BlogPostMeta 
             pubDate={frontmatter.pubDate} 
-            category={frontmatter.category} 
+            category={frontmatter.category || ''} 
             tags={frontmatter.tags || []} 
             lang={lang}
           />
