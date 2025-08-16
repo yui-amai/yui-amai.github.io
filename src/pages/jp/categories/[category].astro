@@ -1,25 +1,24 @@
 ---
 import { blogPosts, categories } from '@/config/blog-jp';
 import type { GetStaticPaths } from 'astro';
-import Category from '@/layouts/Category.astro';
+import CategoryLayout from '@/layouts/Category.astro';
 import RippleButton from '@/components/RippleButton.astro';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   // Map Japanese category names to English equivalents
-  const categoryMapping = {
+  const categoryMapping: Record<string, string> = {
     "プログラミング": "programming",
     "統計学": "statistics",
     "研究": "research"
   };
   
   return categories.map((category) => {
-    const englishSlug = categoryMapping[category.name] || category.name.toLowerCase().replace(/\s+/g, '-');
+    const englishSlug = categoryMapping[category.name as keyof typeof categoryMapping] || category.name.toLowerCase().replace(/\s+/g, '-');
     
     return {
       params: { category: englishSlug },
       props: { 
         category: category.name,
-        categoryDescription: category.description,
         frontmatter: {
           layout: '@/layouts/Category.astro',
           file: `categories/${englishSlug}`,
@@ -31,9 +30,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   });
 };
 
-const { category, categoryDescription, frontmatter } = Astro.props as {
+const { category, frontmatter } = Astro.props as {
   category: string;
-  categoryDescription: string;
   frontmatter: {
     layout: string;
     file: string;
@@ -44,7 +42,7 @@ const { category, categoryDescription, frontmatter } = Astro.props as {
 const categoryPosts = blogPosts.filter(post => post.category === category);
 ---
 
-<Category frontmatter={frontmatter}>
+<CategoryLayout frontmatter={frontmatter}>
 <div class="space-y-6">
   {categoryPosts.map((post) => (
     <div class="bg-white/10 dark:bg-white/10 rounded-lg pt-1 pb-4 px-6 backdrop-blur-sm border border-white/30 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/20 transition-all duration-200 shadow-sm hover:shadow-md">
@@ -82,4 +80,4 @@ const categoryPosts = blogPosts.filter(post => post.category === category);
                 カテゴリーに戻る
               </RippleButton>
             </div>
-</Category>
+</CategoryLayout>

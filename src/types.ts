@@ -6,6 +6,9 @@ type TitleDesc = {
 export type Frontmatter = {
   layout: string
   file: string
+  pubDate?: string
+  category?: string
+  tags?: string[]
 } & TitleDesc
 
 export type MarkdownRecord = {

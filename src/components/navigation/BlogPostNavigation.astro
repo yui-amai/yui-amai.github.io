@@ -34,7 +34,7 @@ const previousPost = currentIndex < blogPosts.length - 1 ? blogPosts[currentInde
         title={previousPost.title}
         class="relative flex items-center rounded-base border border-black/50 p-2 px-4 no-underline transition-all duration-200 hover:border-black dark:border-white/50 dark:hover:border-white active:scale-95 overflow-hidden"
         href={previousPost.url}
-        id={`ripple-btn-${Math.random().toString(36).substr(2, 9)}`}
+        id={`ripple-btn-${Math.random().toString(36).substring(2, 11)}`}
       >
         <svg
           class="relative z-10 h-6 w-6 flex-shrink-0 w600:hidden w500:inline mr-3"
@@ -67,7 +67,7 @@ const previousPost = currentIndex < blogPosts.length - 1 ? blogPosts[currentInde
         title={nextPost.title}
         class="relative flex items-center justify-start flex-row-reverse rounded-base border border-black/50 p-2 px-4 no-underline transition-all duration-200 hover:border-black dark:border-white/50 dark:hover:border-white active:scale-95 overflow-hidden"
         href={nextPost.url}
-        id={`ripple-btn-${Math.random().toString(36).substr(2, 9)}`}
+        id={`ripple-btn-${Math.random().toString(36).substring(2, 11)}`}
       >
         <svg
           class="relative z-10 h-6 w-6 flex-shrink-0 w600:hidden w500:inline rotate-180 ml-3"

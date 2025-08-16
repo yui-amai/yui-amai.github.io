@@ -1,7 +1,7 @@
 ---
 import { blogPosts, tags } from '@/config/blog-jp';
 import type { GetStaticPaths } from 'astro';
-import Category from '@/layouts/Category.astro';
+import CategoryLayout from '@/layouts/Category.astro';
 import RippleButton from '@/components/RippleButton.astro';
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -38,7 +38,7 @@ const tagPosts = blogPosts.filter(post =>
 );
 ---
 
-<Category frontmatter={frontmatter}>
+<CategoryLayout frontmatter={frontmatter}>
 <div class="space-y-6">
   {tagPosts.map((post) => (
     <div class="bg-white/10 dark:bg-white/10 rounded-lg pt-1 pb-4 px-6 backdrop-blur-sm border border-white/30 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/20 transition-all duration-200 shadow-sm hover:shadow-md">
@@ -82,4 +82,4 @@ const tagPosts = blogPosts.filter(post =>
                 タグに戻る
               </RippleButton>
             </div>
-</Category>
+</CategoryLayout>

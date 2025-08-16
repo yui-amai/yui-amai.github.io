@@ -6,7 +6,7 @@ export interface Props {
 }
 
 const { href, className = "", ariaLabel } = Astro.props;
-const uniqueId = `ripple-btn-${Math.random().toString(36).substr(2, 9)}`;
+const uniqueId = `ripple-btn-${Math.random().toString(36).substring(2, 11)}`;
 ---
 
 <a 

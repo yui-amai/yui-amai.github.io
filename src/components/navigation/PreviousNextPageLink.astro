@@ -16,7 +16,7 @@ const { t, link, text, isNext } = Astro.props as {
     isNext && 'justify-start flex-row-reverse',
   )}
   href={Astro.url.origin + '/' + link}
-  id={`ripple-btn-${Math.random().toString(36).substr(2, 9)}`}
+  id={`ripple-btn-${Math.random().toString(36).substring(2, 11)}`}
 >
   <svg
     class={clsx(
