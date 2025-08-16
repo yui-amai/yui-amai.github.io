@@ -15,7 +15,7 @@ const { headings, lang } = Astro.props as {
 
   <div class="my-5 text-sm">
     <a
-      class="mb-1 flex w-[250px] items-center justify-between rounded-base p-1.5 pl-3 text-base text-lightModeText/80 transition-colors hover:bg-black/10 hover:text-lightModeText dark:text-darkModeText/80 dark:hover:bg-white/10 dark:hover:text-darkModeText w1200:w-full"
+      class="mb-1 flex w-[250px] items-center justify-between rounded-base p-1.5 pl-3 text-base text-lightModeText/80 transition-colors hover:bg-black/5 hover:text-lightModeText dark:text-darkModeText/80 dark:hover:bg-white/10 dark:hover:text-darkModeText w1200:w-full"
       href="#_top"
     >
       <span class="w1200:text-sm">{ON_THIS_PAGE[lang].scrollToTop}</span>
@@ -38,7 +38,7 @@ const { headings, lang } = Astro.props as {
       headings.map((heading) => {
         return (
           <a
-            class="mb-1 block rounded-base p-1.5 text-lightModeText/80 transition-colors hover:bg-black/10 hover:text-lightModeText dark:text-darkModeText/80 dark:hover:bg-white/10 dark:hover:text-darkModeText"
+            class="mb-1 block rounded-base p-1.5 text-lightModeText/80 transition-colors hover:bg-black/5 hover:text-lightModeText dark:text-darkModeText/80 dark:hover:bg-white/10 dark:hover:text-darkModeText"
             style={{ paddingLeft: `${(heading.depth - 0.5) * 8}` + 'px' }}
             href={`#${heading.slug}`}
           >
@@ -80,8 +80,8 @@ const { headings, lang } = Astro.props as {
                   for (const el of currentActiveElements) {
                     el.classList.remove(
                       'font-medium',
-                      'bg-black/10',
-                      'dark:bg-white/10',
+                      'bg-black/5',
+                      'dark:bg-white/5',
                     )
                     el.removeAttribute('data-current-active-tab-content-item')
                   }
@@ -89,8 +89,8 @@ const { headings, lang } = Astro.props as {
 
                 tocItem.classList.add(
                   'font-medium',
-                  'bg-black/10',
-                  'dark:bg-white/10',
+                  'bg-black/5',
+                  'dark:bg-white/5',
                 )
                 tocItem.setAttribute(
                   'data-current-active-tab-content-item',
@@ -105,7 +105,7 @@ const { headings, lang } = Astro.props as {
           },
         ).observe(h)
       })
-  }
+    }
   observer()
   document.addEventListener('astro:page-load', observer)
 </script>

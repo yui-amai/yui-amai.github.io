@@ -1,0 +1,85 @@
+---
+import { blogPosts, tags } from '@/config/blog-jp';
+import type { GetStaticPaths } from 'astro';
+import Category from '@/layouts/Category.astro';
+import RippleButton from '@/components/RippleButton.astro';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  // Get unique tags from all blog posts
+  const allTags = tags.map(tag => tag.name);
+  
+  return allTags.map((tag) => ({
+    params: { tag: tag.toLowerCase() },
+    props: { 
+      tag: tag,
+      frontmatter: {
+        layout: '@/layouts/Category.astro',
+        file: `tags/${tag.toLowerCase()}`,
+        title: `タグ > ${tag}`,
+        description: `#${tag}のタグが付いた投稿`
+      }
+    }
+  }));
+};
+
+const { tag, frontmatter } = Astro.props as {
+  tag: string;
+  frontmatter: {
+    layout: string;
+    file: string;
+    title: string;
+    description: string;
+  };
+};
+
+// Filter posts by tag (case insensitive)
+const tagPosts = blogPosts.filter(post => 
+  post.tags.some(t => t.toLowerCase() === tag.toLowerCase())
+);
+---
+
+<Category frontmatter={frontmatter}>
+<div class="space-y-6">
+  {tagPosts.map((post) => (
+    <div class="bg-white/10 dark:bg-white/10 rounded-lg pt-1 pb-4 px-6 backdrop-blur-sm border border-white/30 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/20 transition-all duration-200 shadow-sm hover:shadow-md">
+      <h3 class="text-3xl font-bold text-black/90 dark:text-white/90 mb-1">
+        <a href={post.url} class="hover:text-black/70 dark:hover:text-white/70 transition-colors no-underline">
+          {post.title}
+        </a>
+      </h3>
+      <p class="text-black/70 dark:text-white/70 mb-3 leading-relaxed text-sm" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+        {post.description}
+      </p>
+      <div class="flex items-center space-x-4 text-xs text-black/60 dark:text-white/60">
+        <div class="flex items-center space-x-1">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+          <span>{new Date(post.pubDate).toISOString().split('T')[0].replace(/-/g, '/')}</span>
+        </div>
+        <div class="flex items-center space-x-1">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path>
+          </svg>
+          <span>{post.category}</span>
+        </div>
+        <div class="flex items-center space-x-1">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+          </svg>
+          <span>{post.tags.join(', ')}</span>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+
+            <div class="mt-8 text-center">
+              <RippleButton href="/jp/tags" className="inline-flex items-center px-4 py-2 bg-transparent text-black/90 dark:bg-transparent dark:text-white/90 rounded-lg hover:bg-gray-200 dark:hover:border-white transition-all duration-200 border border-gray-300 dark:border-white/10 no-underline">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+                タグに戻る
+              </RippleButton>
+            </div>
+</Category>

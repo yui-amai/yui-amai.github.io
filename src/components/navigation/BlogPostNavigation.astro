@@ -1,0 +1,152 @@
+---
+import { type LanguageKeys, MISC } from '@/i18n/ui'
+import { blogPosts as enBlogPosts } from '@/config/blog'
+import { blogPosts as jpBlogPosts } from '@/config/blog-jp'
+
+const { lang, currentSlug } = Astro.props as { 
+  lang: LanguageKeys,
+  currentSlug: string
+}
+
+// Select the appropriate blog posts based on language
+let blogPosts = lang === 'en' ? enBlogPosts : jpBlogPosts;
+
+// Sort blog posts by date (newest first)
+blogPosts = [...blogPosts].sort((a, b) => {
+  return new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime();
+});
+
+// Find the current post index
+console.log("Current slug:", currentSlug);
+console.log("Available slugs:", blogPosts.map(post => post.slug).join(", "));
+const currentIndex = blogPosts.findIndex(post => post.slug === currentSlug);
+
+// Get previous (newer) and next (older) posts based on publication date
+// Previous = newer post (closer to present), Next = older post (further in past)
+const nextPost = currentIndex > 0 ? blogPosts[currentIndex - 1] : null;
+const previousPost = currentIndex < blogPosts.length - 1 ? blogPosts[currentIndex + 1] : null;
+---
+
+<div class="mb-16 grid grid-cols-2 gap-4 px-8 w800:px-6 w500:grid-cols-1 w500:px-4">
+  <div class="flex justify-start">
+    {previousPost && (
+      <a
+        title={previousPost.title}
+        class="relative flex items-center rounded-base border border-black/50 p-2 px-4 no-underline transition-all duration-200 hover:border-black dark:border-white/50 dark:hover:border-white active:scale-95 overflow-hidden"
+        href={previousPost.url}
+        id={`ripple-btn-${Math.random().toString(36).substr(2, 9)}`}
+      >
+        <svg
+          class="relative z-10 h-6 w-6 flex-shrink-0 w600:hidden w500:inline mr-3"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+        >
+          <path
+            class="stroke-lightModeIcon dark:stroke-darkModeIcon"
+            d="M6 12H18M6 12L11 7M6 12L11 17"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg>
+
+        <div
+          class="relative z-10 block max-w-[80%] overflow-hidden overflow-ellipsis whitespace-nowrap"
+        >
+          <p class="text-xs opacity-80">{lang === 'jp' ? '前へ' : 'Previous'}</p>
+          <span class="text-lg w900:text-base">
+            {previousPost.title}
+          </span>
+        </div>
+      </a>
+    )}
+  </div>
+  <div class="flex justify-end">
+    {nextPost && (
+      <a
+        title={nextPost.title}
+        class="relative flex items-center justify-start flex-row-reverse rounded-base border border-black/50 p-2 px-4 no-underline transition-all duration-200 hover:border-black dark:border-white/50 dark:hover:border-white active:scale-95 overflow-hidden"
+        href={nextPost.url}
+        id={`ripple-btn-${Math.random().toString(36).substr(2, 9)}`}
+      >
+        <svg
+          class="relative z-10 h-6 w-6 flex-shrink-0 w600:hidden w500:inline rotate-180 ml-3"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+        >
+          <path
+            class="stroke-lightModeIcon dark:stroke-darkModeIcon"
+            d="M6 12H18M6 12L11 7M6 12L11 17"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg>
+
+        <div
+          class="relative z-10 block max-w-[80%] overflow-hidden overflow-ellipsis whitespace-nowrap"
+        >
+          <p class="text-xs opacity-80 text-right">{lang === 'jp' ? '次へ' : 'Next'}</p>
+          <span class="text-lg w900:text-base">
+            {nextPost.title}
+          </span>
+        </div>
+      </a>
+    )}
+  </div>
+</div>
+
+<script>
+  // Ripple effect for navigation buttons
+  document.addEventListener('astro:page-load', () => {
+    const buttons = document.querySelectorAll('[id^="ripple-btn-"]')
+    
+    buttons.forEach(button => {
+      button.addEventListener('mousedown', createRipple as EventListener)
+      button.addEventListener('touchstart', createRipple as EventListener)
+    })
+  })
+
+  function createRipple(event: MouseEvent | TouchEvent) {
+    const button = event.currentTarget as HTMLElement
+    const rect = button.getBoundingClientRect()
+    
+    // Get click position
+    const x = (event instanceof MouseEvent ? event.clientX : event.touches[0].clientX) - rect.left
+    const y = (event instanceof MouseEvent ? event.clientY : event.touches[0].clientY) - rect.top
+    
+    // Create ripple element
+    const ripple = document.createElement('span')
+    const size = Math.max(rect.width, rect.height)
+    
+    ripple.style.cssText = `
+      position: absolute;
+      left: ${x - size / 2}px;
+      top: ${y - size / 2}px;
+      width: ${size}px;
+      height: ${size}px;
+      background: ${document.documentElement.classList.contains('dark') ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)'};
+      border-radius: 50%;
+      transform: scale(0);
+      animation: ripple-animation 0.6s ease-out;
+      pointer-events: none;
+      z-index: 5;
+    `
+    
+    button.appendChild(ripple)
+    
+    // Remove ripple after animation
+    setTimeout(() => {
+      ripple.remove()
+    }, 600)
+  }
+</script>
+
+<style>
+  @keyframes ripple-animation {
+    to {
+      transform: scale(4);
+      opacity: 0;
+    }
+  }
+</style>

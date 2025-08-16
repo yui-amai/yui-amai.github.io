@@ -1,0 +1,45 @@
+---
+import { type Frontmatter } from '@/types'
+import type { LanguageKeys } from '@/i18n/ui'
+
+import { DEFAULT_LANGUAGE_CODE } from '@/config'
+import Base from '@/layouts/Base.astro'
+import Sidebar from '@/components/sidebar/Sidebar.astro'
+
+const langFromURL = Astro.url.pathname.split('/')[1] || DEFAULT_LANGUAGE_CODE
+const lang: LanguageKeys = langFromURL as LanguageKeys
+
+const { frontmatter } = Astro.props as {
+  frontmatter: Frontmatter
+}
+---
+
+<Base frontmatter={frontmatter}>
+  <Sidebar lang={lang} />
+  <div
+    class="ml-[250px] mr-[500px] w1600:mr-[300px] w1200:mx-[200px] w1100:ml-[200px] w1100:mr-0 w800:ml-0"
+  >
+    <div class="mx-auto w-[800px] w1400:w-full">
+      <div
+        id="markdown"
+        class="prose w-full max-w-full break-words pt-4 pb-10 px-10 text-lightModeText/90 w1200:prose-sm prose-headings:scroll-mt-28 prose-headings:text-lightModeText prose-a:text-lightModeText prose-blockquote:text-lightModeText prose-strong:text-lightModeText prose-ol:text-lightModeText prose-ul:text-lightModeText prose-table:text-lightModeText prose-tr:text-lightModeText prose-td:text-lightModeText prose-hr:bg-transparent dark:text-darkModeText/90 dark:prose-headings:text-darkModeText dark:prose-a:text-darkModeText dark:prose-strong:text-darkModeText dark:prose-code:text-darkModeText dark:prose-ol:text-darkModeText dark:prose-ul:text-lightModeText dark:prose-tr:text-darkModeText dark:prose-td:text-darkModeText w800:pt-4 w800:pb-8 w800:px-8 w500:pt-4 w500:pb-5 w500:px-5 custom-prose prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-h4:text-lg w800:prose-h1:text-2xl w800:prose-h2:text-xl w800:prose-h3:text-lg w500:prose-h1:text-xl w500:prose-h2:text-lg prose-h3:text-base"
+      >
+        <h1 class="w500:text-xl" id="_top">
+  {frontmatter.title.includes(' > ') ? (
+    <>
+      <a href={`/${lang}/${frontmatter.title.startsWith('Tags') || frontmatter.title.startsWith('タグ') ? 'tags' : 'categories'}`} class="no-underline text-lightModeText dark:text-darkModeText hover:text-black/70 dark:hover:text-white/70 font-normal">
+        {frontmatter.title.startsWith('Tags') ? 'Tags' : 
+         frontmatter.title.startsWith('タグ') ? 'タグ' : 
+         lang === 'jp' ? 'カテゴリー' : 'Categories'}
+      </a> &gt; <span class="text-[#6d5d7a] dark:text-[#8ca8e8]">{frontmatter.title.split(' > ')[1]}</span>
+    </>
+  ) : (
+    frontmatter.title
+  )}
+</h1>
+        <p>{frontmatter.description}</p>
+        <slot />
+      </div>
+    </div>
+  </div>
+</Base>

@@ -93,6 +93,15 @@ const lang = Astro.url.pathname.split('/')[1] || DEFAULT_LANGUAGE_CODE
     <meta name="generator" content={Astro.generator} />
     <ViewTransitions />
     <HeadSeo type="website" frontmatter={frontmatter} />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        lucide.createIcons();
+      });
+      document.addEventListener('astro:after-swap', () => {
+        lucide.createIcons();
+      });
+    </script>
   </head>
   <body class="text-lightModeText dark:text-darkModeText" lang={lang}>
     <Nav />
@@ -104,27 +113,67 @@ const lang = Astro.url.pathname.split('/')[1] || DEFAULT_LANGUAGE_CODE
       <slot />
     </div>
     
+    <!-- Desktop search results overlay -->
+    <div id="desktop-search-overlay" class="fixed inset-0 top-20 z-40 hidden bg-lightModeBg bg-lightModeGradient dark:bg-darkModeBg dark:bg-darkModeGradient">
+      <div class="h-full flex flex-col">
+        <div class="flex-1 overflow-y-auto">
+          <div class="mx-auto max-w-4xl px-8 py-8">
+            <div id="desktop-search-results-content">
+              <!-- Search results will be populated here -->
+            </div>
+          </div>
+        </div>
+        
+        <!-- Footer with logo signature for search results - fixed at bottom -->
+        <footer class="pb-8 text-center flex-shrink-0">
+          <div class="mx-auto max-w-4xl px-5">
+            <div class="flex flex-col items-center space-y-2">
+              <!-- Logo signature -->
+              <div class="h-12 flex items-center justify-center">
+                <img 
+                  src="/images/logo4_day.png" 
+                  alt="Blog signature logo" 
+                  class="h-12 w-auto opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300 ease-out dark:hidden"
+                />
+                <img 
+                  src="/images/logo4_night.png" 
+                  alt="Blog signature logo" 
+                  class="h-12 w-auto opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300 ease-out hidden dark:block"
+                />
+              </div>
+              <!-- Copyright text -->
+              <p class="text-xs opacity-60 leading-none">
+                © 2025 Yui Amai. Built with Astro and Stellar theme.
+              </p>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+    
     <!-- Footer with logo signature -->
-    <footer class="mt-20 pb-8 text-center">
+    <footer class="mt-4 pb-8 text-center">
       <div class="mx-auto max-w-4xl px-5">
         <div class="flex flex-col items-center space-y-2">
           <!-- Logo signature - only show on non-homepage -->
-          {Astro.url.pathname.split('/').length > 2 && (
+          {Astro.url.pathname !== '/' && Astro.url.pathname !== '/jp' && Astro.url.pathname !== '/en' && (
             <>
-              <img 
-                src="/images/logo4_day.png" 
-                alt="Blog signature logo" 
-                class="h-12 w-auto opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300 ease-out dark:hidden"
-              />
-              <img 
-                src="/images/logo4_night.png" 
-                alt="Blog signature logo" 
-                class="h-12 w-auto opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300 ease-out hidden dark:block"
-              />
+              <div class="h-12 flex items-center justify-center">
+                <img 
+                  src="/images/logo4_day.png" 
+                  alt="Blog signature logo" 
+                  class="h-12 w-auto opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300 ease-out dark:hidden"
+                />
+                <img 
+                  src="/images/logo4_night.png" 
+                  alt="Blog signature logo" 
+                  class="h-12 w-auto opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300 ease-out hidden dark:block"
+                />
+              </div>
             </>
           )}
           <!-- Copyright text -->
-          <p class="text-xs opacity-60">
+          <p class="text-xs opacity-60 leading-none">
             © 2025 Yui Amai. Built with Astro and Stellar theme.
           </p>
         </div>
@@ -166,6 +215,102 @@ const lang = Astro.url.pathname.split('/')[1] || DEFAULT_LANGUAGE_CODE
     }, 300)
 
     // im adding those classes with 300ms delay, so theres no flashing on inital page load
+    
+    // Listen for search state changes
+    window.addEventListener('searchStateChange', (event: any) => {
+      const isSearching = event.detail.isSearching
+      const searchOverlay = document.getElementById('desktop-search-overlay')
+      const searchResultsContent = document.getElementById('desktop-search-results-content')
+      
+      if (searchOverlay && searchResultsContent) {
+        if (isSearching) {
+          searchOverlay.classList.remove('hidden')
+          // Populate search results
+          populateDesktopSearchResults(searchResultsContent)
+        } else {
+          searchOverlay.classList.add('hidden')
+          searchResultsContent.innerHTML = ''
+        }
+      }
+    })
+  }
+  
+  function populateDesktopSearchResults(container: HTMLElement) {
+    // This function will be called by the Search component to populate results
+    // For now, we'll add a placeholder
+    container.innerHTML = `
+      <div class="text-center py-20">
+        <h2 class="text-2xl font-medium text-black/80 dark:text-white/80 mb-4">検索結果</h2>
+        <p class="text-black/60 dark:text-white/60">検索を開始してください...</p>
+      </div>
+    `
+  }
+  
+  // Global function to populate search results
+  (window as any).populateDesktopSearchResults = function(results: any[], message: string | null, lang: string) {
+    const container = document.getElementById('desktop-search-results-content')
+    if (!container) return
+    
+    if (results.length > 0) {
+      const titleText = lang === 'en' ? 'Search Results' : '検索結果'
+      const countText = lang === 'en' 
+        ? `${results.length} result${results.length === 1 ? '' : 's'} found`
+        : `${results.length} 件の結果が見つかりました`
+      
+      let html = `
+        <div class="mb-6">
+          <h2 class="text-2xl font-medium text-black/80 dark:text-white/80 mb-4">${titleText}</h2>
+          <p class="text-base text-black/60 dark:text-white/60 mb-6">${countText}</p>
+        </div>
+        <div class="space-y-0">
+      `
+      
+      results.forEach((item, index) => {
+        html += `
+          <div class="p-4 cursor-pointer transition-all duration-300 ease-out border-b border-black/10 dark:border-white/10" data-index="${index}">
+            <div class="flex items-center gap-2 mb-2">
+              <h3 class="font-medium text-black/80 dark:text-white/80 text-lg">${item.title}</h3>
+              ${item.lang ? `<span class="text-xs px-2 py-1 rounded-full ${
+                item.lang === 'jp' 
+                  ? 'bg-[#C7D9DD] text-[#2D3748] dark:bg-[#2D6E7E] dark:text-[#e5e7eb]' 
+                  : 'bg-[#ADB2D4] text-[#2D3748] dark:bg-[#9290C3] dark:text-[#e5e7eb]'
+              }">${item.lang === 'jp' ? 'JP' : 'EN'}</span>` : ''}
+            </div>
+            <p class="text-base text-black/60 dark:text-white/60 mt-2">${item.description}</p>
+          </div>
+        `
+      })
+      
+      html += '</div>'
+      container.innerHTML = html
+      
+      // Add click handlers and hover effects
+      const resultItems = container.querySelectorAll('[data-index]')
+      resultItems.forEach((item) => {
+        const index = parseInt(item.getAttribute('data-index') || '0')
+        
+        // Add hover effect with rounded corners
+        item.addEventListener('mouseenter', () => {
+          item.classList.add('rounded-lg', 'bg-black/5', 'dark:bg-white/5')
+        })
+        
+        item.addEventListener('mouseleave', () => {
+          item.classList.remove('rounded-lg', 'bg-black/5', 'dark:bg-white/5')
+        })
+        
+        item.addEventListener('click', () => {
+          window.location.href = results[index].url || '#'
+        })
+      })
+    } else if (message) {
+      const titleText = lang === 'en' ? 'Search Results' : '検索結果'
+      container.innerHTML = `
+        <div class="text-center py-20">
+          <h2 class="text-2xl font-medium text-black/80 dark:text-white/80 mb-4">${titleText}</h2>
+          <p class="text-base text-black/60 dark:text-white/60">${message}</p>
+        </div>
+      `
+    }
   }
 
   init()
